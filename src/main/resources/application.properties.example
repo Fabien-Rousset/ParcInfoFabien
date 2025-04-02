@@ -1,0 +1,20 @@
+spring.application.name=ParcInfo
+
+#port par défaut
+server.address=8081
+
+#niveau de level logging
+logging.level.root=error
+
+#pour mon package
+logging.level.fr.afpa.pompey.cda17=info
+
+#pour la BDD
+logging.level.org.springframework.data=INFO
+logging.level.org.springframework.jdbc.core.JdbcTemplate=DEBUG
+
+#niveau de level logging pour TOMCAT
+logging.level.org.springframework.boot.web.embedded.tomcat=INFO
+
+#custom config
+fr.afpa.pompey.cda17.appweb.apiUrl=http://localhost:8082
