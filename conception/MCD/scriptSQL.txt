@@ -1,48 +1,48 @@
 CREATE TABLE appareils(
-   idAppareil INT AUTO_INCREMENT,
+   id_appareil INT AUTO_INCREMENT,
    libelle VARCHAR(30) NOT NULL,
    PRIMARY KEY(idAppareil)
 );
 
 CREATE TABLE personnes(
-   idPersonne INT AUTO_INCREMENT,
+   id_personne INT AUTO_INCREMENT,
    nom VARCHAR(30) NOT NULL,
    adresse VARCHAR(50) NOT NULL,
    telephone VARCHAR(15),
-   dateNaissance DATE,
+   date_naissance DATE,
    prenom VARCHAR(25) NOT NULL,
-   PRIMARY KEY(idPersonne)
+   PRIMARY KEY(id_personne)
 );
 
 CREATE TABLE Smartphone(
-   idAppareil INT,
-   estSmartphone BOOLEAN NOT NULL,
-   PRIMARY KEY(idAppareil),
-   FOREIGN KEY(idAppareil) REFERENCES appareils(idAppareil)
+   id_appareil INT,
+   est_smartphone BOOLEAN NOT NULL,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil)
 );
 
 CREATE TABLE ordinateurs(
-   idAppareil INT,
-   estFixe BOOLEAN NOT NULL,
-   PRIMARY KEY(idAppareil),
-   FOREIGN KEY(idAppareil) REFERENCES appareils(idAppareil)
+   id_appareil INT,
+   de_bureau BOOLEAN NOT NULL,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil)
 );
 
 CREATE TABLE Peripheriques(
-   idAppareil INT,
+   id_appareil INT,
    type VARCHAR(25) NOT NULL,
-   idAppareil_idOrdinateur INT,
-   idAppareil_idSmartphone INT,
-   PRIMARY KEY(idAppareil),
-   FOREIGN KEY(idAppareil) REFERENCES appareils(idAppareil),
-   FOREIGN KEY(idAppareil_idOrdinateur) REFERENCES ordinateurs(idAppareil),
-   FOREIGN KEY(idAppareil_idSmartphone) REFERENCES Smartphone(idAppareil)
+   id_appareil_id_ordinateur INT,
+   id_appareil_id_smartphone INT,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(idAppareil),
+   FOREIGN KEY(id_appareil_id_ordinateur) REFERENCES ordinateurs(id_appareil),
+   FOREIGN KEY(id_appareil_id_smartphone) REFERENCES Smartphone(id_appareil)
 );
 
 CREATE TABLE affecter(
-   idAppareil INT,
-   idPersonne INT,
-   PRIMARY KEY(idAppareil, idPersonne),
-   FOREIGN KEY(idAppareil) REFERENCES appareils(idAppareil),
-   FOREIGN KEY(idPersonne) REFERENCES personnes(idPersonne)
+   id_appareil INT,
+   id_personne INT,
+   PRIMARY KEY(id_appareil, idPersonne),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil),
+   FOREIGN KEY(id_personne) REFERENCES personnes(id_personne)
 );
