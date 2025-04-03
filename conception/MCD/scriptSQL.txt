@@ -1,7 +1,7 @@
 CREATE TABLE appareils(
    id_appareil INT AUTO_INCREMENT,
    libelle VARCHAR(30) NOT NULL,
-   PRIMARY KEY(idAppareil)
+   PRIMARY KEY(id_appareil)
 );
 
 CREATE TABLE personnes(
@@ -34,7 +34,7 @@ CREATE TABLE Peripheriques(
    id_appareil_id_ordinateur INT,
    id_appareil_id_smartphone INT,
    PRIMARY KEY(id_appareil),
-   FOREIGN KEY(id_appareil) REFERENCES appareils(idAppareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil),
    FOREIGN KEY(id_appareil_id_ordinateur) REFERENCES ordinateurs(id_appareil),
    FOREIGN KEY(id_appareil_id_smartphone) REFERENCES Smartphone(id_appareil)
 );
@@ -42,7 +42,7 @@ CREATE TABLE Peripheriques(
 CREATE TABLE affecter(
    id_appareil INT,
    id_personne INT,
-   PRIMARY KEY(id_appareil, idPersonne),
+   PRIMARY KEY(id_appareil, id_personne),
    FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil),
    FOREIGN KEY(id_personne) REFERENCES personnes(id_personne)
 );
