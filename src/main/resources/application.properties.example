@@ -1,7 +1,7 @@
 spring.application.name=ParcInfo
 
-#port par défaut
-server.address=8081
+#port par dÃ©faut
+server.port=8081
 
 #niveau de level logging
 logging.level.root=error
@@ -17,4 +17,4 @@ logging.level.org.springframework.jdbc.core.JdbcTemplate=DEBUG
 logging.level.org.springframework.boot.web.embedded.tomcat=INFO
 
 #custom config
-fr.afpa.pompey.cda17.appweb.apiUrl=http://localhost:8082
+fr.afpa.pompey.cda17.apiUrl=http://localhost:8082
