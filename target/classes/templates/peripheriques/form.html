@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Gestion des Périphériques</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container mt-4">
+            <h2 th:text="${peripherique.idPeripherique == null ? 'Nouveau Périphérique' : 'Modifier le Périphérique'}">Titre</h2>
+            
+            <form th:action="@{/peripheriques}" th:object="${peripherique}" method="post" class="mt-4">
+                <input type="hidden" th:field="*{idPeripherique}">
+                
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <select class="form-select" id="type" th:field="*{type}" required>
+                        <option value="">Sélectionnez un type</option>
+                        <option th:each="type : ${T(com.parcinfo.model.Peripherique).TYPES_VALIDES}"
+                                th:value="${type}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">
+                        Le type est requis
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estActif" class="form-label">État</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="estActif" th:field="*{estActif}">
+                        <label class="form-check-label" for="estActif">Actif</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <a th:href="@{/peripheriques}" class="btn btn-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 
