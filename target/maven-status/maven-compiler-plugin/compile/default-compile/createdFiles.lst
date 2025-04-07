@@ -1,9 +1,0 @@
-com\parcinfo\exception\PeripheriqueException.class
-com\parcinfo\service\PeripheriqueService.class
-com\parcinfo\model\Peripherique.class
-com\parcinfo\controller\HomeController.class
-com\parcinfo\repository\PeripheriqueRepository.class
-com\parcinfo\model\TypePeripherique.class
-com\parcinfo\ParcInfoApplication.class
-com\parcinfo\controller\PeripheriqueViewController.class
-com\parcinfo\controller\PeripheriqueController.class

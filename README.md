@@ -83,6 +83,3 @@ Pour contribuer au projet :
 1. Créer une branche pour votre fonctionnalité
 2. Commit vos changements
 3. Créer une Pull Request
-
-## Licence
-Ce projet est sous licence [MIT] (licence libre). Voir le fichier `LICENSE` pour plus de détails. 

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Database>
+   <Name>Looping1</Name>
+   <Table>
+      <Name>appareils</Name>
+      <Column>
+         <Name>idAppareil</Name>
+         <Type>COUNTER</Type>
+         <Comment>Identifiant &#224; tous les appareils</Comment>
+      </Column>
+      <Column>
+         <Name>libelle</Name>
+         <Type>VARCHAR(30)</Type>
+         <Property>NOT NULL</Property>
+         <Comment>Le libell&#233; de l'appareil </Comment>
+      </Column>
+      <PK>
+         <Key>idAppareil</Key>
+      </PK>
+   </Table>
+   <Table>
+      <Name>personnes</Name>
+      <Column>
+         <Name>idPersonne</Name>
+         <Type>COUNTER</Type>
+         <Comment>Identifiant des personnes</Comment>
+      </Column>
+      <Column>
+         <Name>nom</Name>
+         <Type>VARCHAR(30)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <Column>
+         <Name>adresse</Name>
+         <Type>VARCHAR(50)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <Column>
+         <Name>telephone</Name>
+         <Type>VARCHAR(15)</Type>
+      </Column>
+      <Column>
+         <Name>dateNaissance</Name>
+         <Type>DATE</Type>
+      </Column>
+      <Column>
+         <Name>prenom</Name>
+         <Type>VARCHAR(25)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>idPersonne</Key>
+      </PK>
+   </Table>
+   <Table>
+      <Name>Smartphone</Name>
+      <Column>
+         <Name>idAppareil</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <Column>
+         <Name>estSmartphone</Name>
+         <Type>LOGICAL</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>idAppareil</Key>
+      </PK>
+      <FK>
+         <Key>idAppareil</Key>
+         <Reference>appareils(idAppareil)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>ordinateurs</Name>
+      <Column>
+         <Name>idAppareil</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <Column>
+         <Name>estFixe</Name>
+         <Type>LOGICAL</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>idAppareil</Key>
+      </PK>
+      <FK>
+         <Key>idAppareil</Key>
+         <Reference>appareils(idAppareil)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>Peripheriques</Name>
+      <Column>
+         <Name>idAppareil</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <Column>
+         <Name>type</Name>
+         <Type>VARCHAR(25)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <Column>
+         <Name>idAppareil_idOrdinateur</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <Column>
+         <Name>idAppareil_idSmartphone</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <PK>
+         <Key>idAppareil</Key>
+      </PK>
+      <FK>
+         <Key>idAppareil</Key>
+         <Reference>appareils(idAppareil)</Reference>
+      </FK>
+      <FK>
+         <Key>idAppareil_idOrdinateur</Key>
+         <Reference>ordinateurs(idAppareil)</Reference>
+      </FK>
+      <FK>
+         <Key>idAppareil_idSmartphone</Key>
+         <Reference>Smartphone(idAppareil)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>affecter</Name>
+      <Column>
+         <Name>idAppareil</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <Column>
+         <Name>idPersonne</Name>
+         <Type>COUNTER</Type>
+      </Column>
+      <PK>
+         <Key>idAppareil, idPersonne</Key>
+      </PK>
+      <FK>
+         <Key>idAppareil</Key>
+         <Reference>appareils(idAppareil)</Reference>
+      </FK>
+      <FK>
+         <Key>idPersonne</Key>
+         <Reference>personnes(idPersonne)</Reference>
+      </FK>
+   </Table>
+</Database>

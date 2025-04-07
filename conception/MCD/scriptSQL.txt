@@ -1,0 +1,48 @@
+CREATE TABLE appareils(
+   id_appareil INT AUTO_INCREMENT,
+   libelle VARCHAR(30) NOT NULL,
+   PRIMARY KEY(id_appareil)
+);
+
+CREATE TABLE personnes(
+   id_personne INT AUTO_INCREMENT,
+   nom VARCHAR(30) NOT NULL,
+   adresse VARCHAR(50) NOT NULL,
+   telephone VARCHAR(15),
+   date_naissance DATE,
+   prenom VARCHAR(25) NOT NULL,
+   PRIMARY KEY(id_personne)
+);
+
+CREATE TABLE Smartphone(
+   id_appareil INT,
+   est_smartphone BOOLEAN NOT NULL,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil)
+);
+
+CREATE TABLE ordinateurs(
+   id_appareil INT,
+   de_bureau BOOLEAN NOT NULL,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil)
+);
+
+CREATE TABLE Peripheriques(
+   id_appareil INT,
+   type VARCHAR(25) NOT NULL,
+   id_appareil_id_ordinateur INT,
+   id_appareil_id_smartphone INT,
+   PRIMARY KEY(id_appareil),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil),
+   FOREIGN KEY(id_appareil_id_ordinateur) REFERENCES ordinateurs(id_appareil),
+   FOREIGN KEY(id_appareil_id_smartphone) REFERENCES Smartphone(id_appareil)
+);
+
+CREATE TABLE affecter(
+   id_appareil INT,
+   id_personne INT,
+   PRIMARY KEY(id_appareil, id_personne),
+   FOREIGN KEY(id_appareil) REFERENCES appareils(id_appareil),
+   FOREIGN KEY(id_personne) REFERENCES personnes(id_personne)
+);
