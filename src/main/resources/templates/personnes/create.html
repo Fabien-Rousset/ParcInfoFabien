@@ -1,0 +1,61 @@
+<div class="container special">
+    <h2>Ajouter une nouvelle personne</h2>
+    <div>
+        <form th:action="@{/savePersonne}"
+              th:object="${personne}"
+              method="post">
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text"
+                       th:field="*{prenom}"
+                       class="form-control"
+                       id="prenomInput"
+                       aria-describedby="prenomHelp"
+                       placeholder="Prénom"/>
+                <small>Veuillez saisir le prénom</small>
+            </div>
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text"
+                       th:field="*{nom}"
+                       class="form-control"
+                       id="nomInput"
+                       aria-describedby="prenomHelp"
+                       placeholder="Nom"/>
+                <small>Veuillez saisir le nom</small>
+            </div>
+            <div class="form-group">
+                <label>Adresse</label>
+                <input type="text"
+                       th:field="*{adresse}"
+                       class="form-control"
+                       id="adresseInput"
+                       aria-describedby="prenomHelp"
+                       placeholder="Adresse"/>
+                <small>Veuillez saisir l'adresse</small>
+            </div>
+            <div class="form-group">
+                <label>Téléphone</label>
+                <input type="text"
+                       th:field="*{telephone}"
+                       class="form-control"
+                       id="telephoneInput"
+                       aria-describedby="prenomHelp"
+                       placeholder="Téléphone"/>
+                <small>Veuillez saisir le téléphone</small>
+            </div>
+            <div class="form-group">
+                <label>Date de naissance</label>
+                <input type="text"
+                       th:field="*{dateNaissance}"
+                       class="form-control"
+                       id="dateNaissanceInput"
+                       aria-describedby="prenomHelp"
+                       placeholder="Date de naissance"/>
+                <small>Veuillez saisir la date de naissance</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </div>
+</div>
