@@ -12,7 +12,7 @@
 </head>
 <body>
 <header th:insert="fragments/header"></header>
-<main class="index">
+<main class="personnes">
     <h2>Liste des personnes</h2>
     <h4><a th:href="@{/createPersonne }">Ajouter une nouvelle personne</a></h4>
     <div class="table-responsive">
@@ -38,12 +38,13 @@
                 <td th:text="${personne.telephone}">Téléphone</td>
                 <td th:text="${personne.dateNaissance}">Date de naissance</td>
                 <td>
-                    <a th:href="@{/updatePersonne/{id}(id=${personne.id})}">
-                        <button class="btn btn-info btn-sm">Modifier</button>
+                    <a th:href="@{/updatePersonne/{id}(id=${personne.id})}"
+                       class="warn">
+                        <span class="material-symbols-outlined">edit</span>
                     </a>
-                    <a th:href="@{/deletePersonne/{id}(id=${personne.id})}">
-                        <button class="btn btn-danger btn-sm">Supprimer
-                        </button>
+                    <a th:href="@{/deletePersonne/{id}(id=${personne.id})}"
+                       class="danger">
+                        <span class="material-symbols-outlined">delete</span>
                     </a>
                 </td>
             </tr>
