@@ -1,39 +1,56 @@
-<div class="container special">
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Parcinfo</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link th:href="@{/css/parcinfo.min.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="index">
     <h2>Liste des personnes</h2>
+    <h4><a th:href="@{/createPersonne }">Ajouter une nouvelle personne</a></h4>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
-                <tr>
-                    <th>Prénom</th>
-                    <th>Nom</th>
-                    <th>Adresse</th>
-                    <th>Téléphone</th>
-                    <th>Date de naissance</th>
-                </tr>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Date de naissance</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:if="${#lists.isEmpty(listPersonnes)}">
-                    <td colspan="5" class="text-center">Aucune personne en
-                        base de données.</td>
-                </tr>
-                <tr th:each="personne : ${listPersonnes}">
-                    <td th:text="${personne.prenom}">Prénom</td>
-                    <td th:text="${personne.nom}">Nom</td>
-                    <td th:text="${personne.adresse}">Adresse</td>
-                    <td th:text="${personne.telephone}">Téléphone</td>
-                    <td th:text="${personne.dateNaissance}">Date de naissance</td>
-                    <td>
-                        <a th:href="@{/updatePersonne/{id}(id=${personne.id})}">
-                            <button class="btn btn-info btn-sm">Modifier</button>
-                        </a>
-                        <a th:href="@{/deletePersonne/{id}(id=${personne.id})}">
-                            <button class="btn btn-danger btn-sm">Supprimer
-                            </button>
-                        </a>
-                    </td>
-                </tr>
+            <tr th:if="${#lists.isEmpty(personnes)}">
+                <td colspan="5" class="text-center">Aucune personne en
+                    base de données.</td>
+            </tr>
+            <tr th:each="personne : ${personnes}">
+                <td th:text="${personne.prenom}">Prénom</td>
+                <td th:text="${personne.nom}">Nom</td>
+                <td th:text="${personne.adresse}">Adresse</td>
+                <td th:text="${personne.telephone}">Téléphone</td>
+                <td th:text="${personne.dateNaissance}">Date de naissance</td>
+                <td>
+                    <a th:href="@{/updatePersonne/{id}(id=${personne.id})}">
+                        <button class="btn btn-info btn-sm">Modifier</button>
+                    </a>
+                    <a th:href="@{/deletePersonne/{id}(id=${personne.id})}">
+                        <button class="btn btn-danger btn-sm">Supprimer
+                        </button>
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
-    <h4><a th:href="@{/createPersonne }">Ajouter une nouvelle personne</a></h4>
-</div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+</html>

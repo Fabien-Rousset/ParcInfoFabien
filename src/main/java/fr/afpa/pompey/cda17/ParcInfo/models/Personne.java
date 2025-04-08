@@ -12,6 +12,7 @@ public class Personne {
     private long id;
     private String nom;
     private String prenom;
+    private String adresse;
     private String telephone;
     private LocalDate dateNaissance;
     private List<Appareil> appareils = new ArrayList<>();
