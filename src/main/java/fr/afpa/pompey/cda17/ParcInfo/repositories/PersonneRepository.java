@@ -81,7 +81,7 @@ public class PersonneRepository {
 
     public Personne updatePersonne(Personne personne) {
         String baseApiUrl = props.getApiUrl();
-        String updatePersonneUrl = baseApiUrl + "/personne";
+        String updatePersonneUrl = baseApiUrl + "/personne/"+ personne.getId();
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<Personne> request = new HttpEntity<>(personne);

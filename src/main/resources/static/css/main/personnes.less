@@ -1,3 +1,53 @@
 main.personnes{
 
+  table{
+    @media (max-width: 1384px){
+      tr{
+        th:nth-child(3), td:nth-child(3),
+        th:nth-child(5), td:nth-child(5){
+          display: none;
+        }
+      }
+    }
+  }
+
+  form{
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+
+    div.form-group{
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      margin: 0 2.5%;
+
+      width: 95%;
+      min-width: 340px;
+
+      &.small{
+        @media (min-width: 787px){
+          width: 20%;
+        }
+      }
+
+      &.middle{
+        @media (min-width: 787px){
+          width: 45%;
+        }
+      }
+
+      > * {
+        padding: 0.5rem;
+      }
+
+      input{
+        border: unset;
+      }
+
+      button{
+        cursor: pointer;
+      }
+    }
+  }
 }
