@@ -11,3 +11,6 @@
         <li><a>Personnes</a></li>
     </ul>
 </nav>
+<div th:if="${alert}" th:class="'alert alert-' + ${type}">
+    <span th:text="${alert}"></span>
+</div>
