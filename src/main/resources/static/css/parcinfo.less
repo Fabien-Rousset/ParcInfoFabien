@@ -11,6 +11,7 @@ html, body{
   font-family: var(--font-family);
   margin: 0;
   padding: 0;
+  background-color: var(--color-background);
 }
 
 header, footer{
@@ -28,18 +29,42 @@ main {
   padding: 0 0.5rem;
 }
 
+h4{
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem auto;
+
+  @media (min-width: 465px){
+    max-width: 50%;
+  }
+
+  a{
+    float: right;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, .05);
+    border-radius: 0.5rem;
+    color: green;
+    text-decoration: none;
+
+    &:hover{
+      background-color: rgba(0, 0, 0, .2);
+    }
+  }
+}
+
 .table-responsive {
   display: block;
   width: 100%;
   overflow-x: auto;
   margin: 2rem auto;
 
-  @media (min-width: 465px) {
+  @media (min-width: 677px) {
     max-width: 50%;
   }
 
   table{
-    min-width: 494px;
+    min-width: 677px;
     margin-bottom: 1rem;
     background-color: transparent;
     width: 100%;
@@ -72,10 +97,36 @@ main {
         tr:nth-of-type(odd) {
           background-color: rgba(0, 0, 0, .05);
         }
+
+        tr{
+          td:last-child {
+            a {
+              padding: 0.25rem;
+              text-decoration: none;
+
+              &.warn {
+                color: orange;
+
+                &:hover {
+                  color: darkorange;
+                }
+              }
+
+              &.danger {
+                color: red;
+
+                &:hover {
+                  color: darkred;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 }
 
 @import "header";
+@import "main";
 @import "footer";
