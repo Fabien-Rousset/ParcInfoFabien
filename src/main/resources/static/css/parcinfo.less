@@ -1,0 +1,30 @@
+:root{
+  --color-background: #f1f1f1;
+  --color-font: #1f1f1f;
+  --color-component: #6e6a6a;
+  --font-family: "Roboto Light";
+}
+
+html, body{
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+}
+
+header, footer{
+  background-color: var(--color-component);
+  color: var(--color-background);
+
+  a {
+    color: var(--color-background);
+    text-decoration: none;
+  }
+}
+
+main {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+}
+
+@import "header";
+@import "footer";

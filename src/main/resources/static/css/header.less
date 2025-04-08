@@ -1,0 +1,56 @@
+header{
+  border-radius: 0 0 0.5rem 0.5rem;
+
+  nav {
+    padding: 0.5rem;
+
+    h2{
+      margin: 0;
+      display: inline-flex;
+    }
+
+    input{
+      display: none;
+      @media (max-width: 494px){
+        &:checked ~ ul{
+          display: inline-flex;
+        }
+
+        & ~ ul{
+          display: none;
+        }
+      }
+    }
+
+    label{
+      @media (min-width: 495px){
+        display: none;
+      }
+
+      span {
+        vertical-align: bottom;
+        float: right;
+      }
+    }
+
+    ul{
+      margin: 0;
+      list-style: none;
+      display: inline-flex;
+
+      @media (max-width: 494px){
+        flex-flow: column;
+        width: 100%;
+        padding: 0;
+      }
+
+      li{
+        padding: 0 0.5rem;
+
+        @media (max-width: 494px){
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+}
