@@ -1,0 +1,27 @@
+footer{
+  border-radius: 0.5rem 0.5rem 0 0;
+
+  .footer-inner{
+    padding: 0.5rem 0;
+
+    ul{
+      margin: 0;
+      list-style: none;
+      display: inline-flex;
+
+      @media (max-width: 494px){
+        flex-flow: column;
+        width: 100%;
+        padding: 0;
+      }
+
+      li{
+        padding: 0 0.5rem;
+
+        @media (max-width: 494px){
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+}
