@@ -12,14 +12,15 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--color-background);
+  overflow-x: hidden;
 }
-header,
-footer {
+header > *,
+footer > * {
   background-color: var(--color-component);
   color: var(--color-background);
 }
-header a,
-footer a {
+header > * a,
+footer > * a {
   color: var(--color-background);
   text-decoration: none;
 }
@@ -99,11 +100,9 @@ h4 a:hover {
 .table-responsive table.table-striped tbody tr td:last-child a.danger:hover {
   color: darkred;
 }
-header {
-  border-radius: 0 0 0.5rem 0.5rem;
-}
 header nav {
   padding: 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 header nav h2 {
   margin: 0;
@@ -149,11 +148,65 @@ header nav ul li {
     padding: 0.5rem;
   }
 }
-footer {
-  border-radius: 0.5rem 0.5rem 0 0;
+header .alert {
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+}
+header .alert.alert-success {
+  background-color: lightgreen;
+  border-color: darkgreen;
+  color: darkgreen;
+}
+header .alert.alert-danger {
+  background-color: lightcoral;
+  border-color: darkred;
+  color: darkred;
+}
+@media (max-width: 1384px) {
+  main.personnes table tr th:nth-child(3),
+  main.personnes table tr td:nth-child(3),
+  main.personnes table tr th:nth-child(5),
+  main.personnes table tr td:nth-child(5) {
+    display: none;
+  }
+}
+main.personnes form {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+main.personnes form div.form-group {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 0 2.5%;
+  width: 95%;
+  min-width: 340px;
+}
+@media (min-width: 787px) {
+  main.personnes form div.form-group.small {
+    width: 20%;
+  }
+}
+@media (min-width: 787px) {
+  main.personnes form div.form-group.middle {
+    width: 45%;
+  }
+}
+main.personnes form div.form-group > * {
+  padding: 0.5rem;
+}
+main.personnes form div.form-group input {
+  border: unset;
+}
+main.personnes form div.form-group button {
+  cursor: pointer;
 }
 footer .footer-inner {
   padding: 0.5rem 0;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 footer .footer-inner ul {
   margin: 0;
