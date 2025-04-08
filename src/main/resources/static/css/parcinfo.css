@@ -3,6 +3,8 @@
   --color-font: #1f1f1f;
   --color-component: #6e6a6a;
   --font-family: "Roboto Light";
+  --border-width: 1px;
+  --table-width: 560px;
 }
 html,
 body {
@@ -23,6 +25,40 @@ footer a {
 main {
   min-height: 100vh;
   padding: 0 0.5rem;
+}
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem auto;
+}
+@media (min-width: 465px) {
+  .table-responsive {
+    max-width: 50%;
+  }
+}
+.table-responsive table {
+  min-width: 494px;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  width: 100%;
+}
+.table-responsive table tr {
+  border: var(--border-width) solid var(--color-component);
+  border-collapse: collapse;
+}
+.table-responsive table tr th,
+.table-responsive table tr td {
+  padding: 0.5rem;
+}
+.table-responsive table.table-striped thead tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.table-responsive table.table-striped thead tr:last-of-type th {
+  border-bottom: 2px solid var(--color-component);
+}
+.table-responsive table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 header {
   border-radius: 0 0 0.5rem 0.5rem;

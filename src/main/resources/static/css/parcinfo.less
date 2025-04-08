@@ -3,6 +3,8 @@
   --color-font: #1f1f1f;
   --color-component: #6e6a6a;
   --font-family: "Roboto Light";
+  --border-width: 1px;
+  --table-width: 560px;
 }
 
 html, body{
@@ -24,6 +26,55 @@ header, footer{
 main {
   min-height: 100vh;
   padding: 0 0.5rem;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem auto;
+
+  @media (min-width: 465px) {
+    max-width: 50%;
+  }
+
+  table{
+    min-width: 494px;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    width: 100%;
+
+    tr{
+      border: var(--border-width) solid var(--color-component);
+      border-collapse: collapse;
+
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+
+    &.table-striped {
+
+      thead{
+
+        tr:nth-of-type(odd) {
+          background-color: rgba(0, 0, 0, .05);
+        }
+
+        tr:last-of-type{
+          th{
+            border-bottom: 2px solid var(--color-component);
+          }
+        }
+      }
+
+      tbody{
+        tr:nth-of-type(odd) {
+          background-color: rgba(0, 0, 0, .05);
+        }
+      }
+    }
+  }
 }
 
 @import "header";
