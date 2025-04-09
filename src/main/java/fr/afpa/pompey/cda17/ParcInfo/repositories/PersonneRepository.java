@@ -94,4 +94,19 @@ public class PersonneRepository {
 
         return response.getBody();
     }
+
+    public void affectAppareils(Personne personne, String[] appareils) {
+        String baseApiUrl = props.getApiUrl();
+        String affectAppareilsUrl =
+                baseApiUrl + "/personne/"+ personne.getId() + "/appareils";
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String[]> request = new HttpEntity<>(appareils);
+        ResponseEntity<Personne> response = restTemplate.exchange(
+                affectAppareilsUrl,
+                HttpMethod.PUT,
+                request,
+                Personne.class
+        );
+    }
 }

@@ -24,6 +24,7 @@ main.personnes{
 
       width: 95%;
       min-width: 340px;
+      height: 100%;
 
       &.small{
         @media (min-width: 787px){
@@ -47,6 +48,11 @@ main.personnes{
 
       button{
         cursor: pointer;
+      }
+
+      select[multiple]{
+        height: 20rem;
+        max-height: 60%;
       }
     }
   }

@@ -184,6 +184,7 @@ main.personnes form div.form-group {
   margin: 0 2.5%;
   width: 95%;
   min-width: 340px;
+  height: 100%;
 }
 @media (min-width: 787px) {
   main.personnes form div.form-group.small {
@@ -203,6 +204,10 @@ main.personnes form div.form-group input {
 }
 main.personnes form div.form-group button {
   cursor: pointer;
+}
+main.personnes form div.form-group select[multiple] {
+  height: 20rem;
+  max-height: 60%;
 }
 footer .footer-inner {
   padding: 0.5rem 0;

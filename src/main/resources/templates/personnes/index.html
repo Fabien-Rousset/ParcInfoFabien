@@ -46,6 +46,9 @@
               <td th:text="${personne.telephone}">Téléphone</td>
                 <td th:text="${#temporals.format(personne.dateNaissance, 'dd/MM/yyyy')}">Date de naissance</td>
               <td>
+                <a th:href="@{/personnes/{id}/affect(id=${personne.id})}">
+                  <span class="material-symbols-outlined">attachment</span>
+                </a>
                 <a
                   th:href="@{/personnes/{id}/update(id=${personne.id})}"
                   class="warn"

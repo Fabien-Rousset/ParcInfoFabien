@@ -1,5 +1,6 @@
 package fr.afpa.pompey.cda17.ParcInfo.services;
 
+import fr.afpa.pompey.cda17.ParcInfo.models.Appareil;
 import fr.afpa.pompey.cda17.ParcInfo.models.Personne;
 import fr.afpa.pompey.cda17.ParcInfo.repositories.PersonneRepository;
 import lombok.Data;
@@ -35,5 +36,9 @@ public class PersonneService {
         }
 
         return saved;
+    }
+
+    public void affectAppareils(Personne personne, String[] appareils) {
+        personneRepository.affectAppareils(personne, appareils);
     }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur - Parcinfo</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link th:href="@{/css/parcinfo.min.css}" rel="stylesheet">
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="index">
+    <h2>Erreur</h2>
+    <div class="container">
+        Un problème a été rencontré. Veuillez nous en excuser.
+        <table>
+            <tr>
+                <td>Message d'erreur</td>
+                <td th:text="${message}"></td>
+            </tr>
+            <tr>
+                <td>Status code</td>
+                <td th:text="${status}"></td>
+            </tr>
+            <tr>
+                <td>Exception</td>
+                <td th:text="${exception}"></td>
+            </tr>
+            <tr>
+                <td>Stacktrace</td>
+                <td th:text="${trace}"></td>
+            </tr>
+            <tr>
+                <td>Erreurs liées</td>
+                <td th:text="${errors}"></td>
+            </tr>
+        </table>
+    </div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+</html>
