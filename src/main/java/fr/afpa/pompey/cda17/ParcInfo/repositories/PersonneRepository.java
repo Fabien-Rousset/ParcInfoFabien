@@ -11,102 +11,129 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-
 @Slf4j
 @Component
 public class PersonneRepository {
 
     @Autowired
-    private CustomProperties props;
+    private CustomProperties props; // Injects custom properties containing configuration like API URL.
 
+    /**
+     * Fetches all Personne objects from the API.
+     * @return Iterable of Personne objects.
+     */
     public Iterable<Personne> getPersonnes() {
-        String baseApiUrl = props.getApiUrl();
-        String getPersonnesUrl = baseApiUrl + "/personnes";
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
+        String getPersonnesUrl = baseApiUrl + "/personnes"; // Endpoint for fetching all Personne objects.
 
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
         ResponseEntity<Iterable<Personne>> response =
                 restTemplate.exchange(
                         getPersonnesUrl,
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<Iterable<Personne>>() {}
+                        new ParameterizedTypeReference<Iterable<Personne>>() {} // Response type for a list of Personne.
                 );
 
-        return response.getBody();
+        return response.getBody(); // Returns the response body containing the list of Personne.
     }
 
+    /**
+     * Fetches a specific Personne by ID from the API.
+     * @param id The ID of the Personne to fetch.
+     * @return The Personne object.
+     */
     public Personne getPersonne(long id) {
-        String baseApiUrl = props.getApiUrl();
-        String getPersonnesUrl = baseApiUrl + "/personne/" + id;
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
+        String getPersonnesUrl = baseApiUrl + "/personne/" + id; // Endpoint for fetching a specific Personne by ID.
 
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
         ResponseEntity<Personne> response = restTemplate.exchange(
                 getPersonnesUrl,
                 HttpMethod.GET,
                 null,
-                Personne.class
+                Personne.class // Response type for a single Personne.
         );
 
-        return response.getBody();
+        return response.getBody(); // Returns the response body containing the Personne.
     }
 
+    /**
+     * Creates a new Personne in the API.
+     * @param personne The Personne object to create.
+     * @return The created Personne object.
+     */
     public Personne createPersonne(Personne personne) {
-        String baseApiUrl = props.getApiUrl();
-        String createPersonneUrl = baseApiUrl + "/personne";
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
+        String createPersonneUrl = baseApiUrl + "/personne"; // Endpoint for creating a new Personne.
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Personne> request = new HttpEntity<>(personne);
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
+        HttpEntity<Personne> request = new HttpEntity<>(personne); // Wraps the Personne object in an HTTP request.
         ResponseEntity<Personne> response = restTemplate.exchange(
                 createPersonneUrl,
                 HttpMethod.POST,
                 request,
-                Personne.class
+                Personne.class // Response type for the created Personne.
         );
 
-        return response.getBody();
+        return response.getBody(); // Returns the response body containing the created Personne.
     }
 
+    /**
+     * Deletes a specific Personne by ID in the API.
+     * @param id The ID of the Personne to delete.
+     */
     public void deletePersonne(long id) {
-        String baseApiUrl = props.getApiUrl();
-        String deletePersonneUrl = baseApiUrl + "/personne/" + id;
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
+        String deletePersonneUrl = baseApiUrl + "/personne/" + id; // Endpoint for deleting a specific Personne by ID.
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Void> response = restTemplate.exchange(
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
+        restTemplate.exchange(
                 deletePersonneUrl,
                 HttpMethod.DELETE,
                 null,
-                Void.class
+                Void.class // Response type for a delete operation (no content expected).
         );
     }
 
+    /**
+     * Updates an existing Personne in the API.
+     * @param personne The Personne object with updated data.
+     * @return The updated Personne object.
+     */
     public Personne updatePersonne(Personne personne) {
-        String baseApiUrl = props.getApiUrl();
-        String updatePersonneUrl = baseApiUrl + "/personne/"+ personne.getId();
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
+        String updatePersonneUrl = baseApiUrl + "/personne/" + personne.getId(); // Endpoint for updating a specific Personne.
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Personne> request = new HttpEntity<>(personne);
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
+        HttpEntity<Personne> request = new HttpEntity<>(personne); // Wraps the updated Personne object in an HTTP request.
         ResponseEntity<Personne> response = restTemplate.exchange(
                 updatePersonneUrl,
                 HttpMethod.PUT,
                 request,
-                Personne.class
+                Personne.class // Response type for the updated Personne.
         );
 
-        return response.getBody();
+        return response.getBody(); // Returns the response body containing the updated Personne.
     }
 
+    /**
+     * Assigns a list of appareils to a specific Personne in the API.
+     * @param personne The Personne to whom the appareils will be assigned.
+     * @param appareils The list of appareils to assign.
+     */
     public void affectAppareils(Personne personne, String[] appareils) {
-        String baseApiUrl = props.getApiUrl();
+        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
         String affectAppareilsUrl =
-                baseApiUrl + "/personne/"+ personne.getId() + "/appareils";
+                baseApiUrl + "/personne/" + personne.getId() + "/appareils"; // Endpoint for assigning appareils to a Personne.
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<String[]> request = new HttpEntity<>(appareils);
-        ResponseEntity<Personne> response = restTemplate.exchange(
+        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
+        HttpEntity<String[]> request = new HttpEntity<>(appareils); // Wraps the appareils array in an HTTP request.
+        restTemplate.exchange(
                 affectAppareilsUrl,
                 HttpMethod.PUT,
                 request,
-                Personne.class
+                Personne.class // Response type for the updated Personne after assigning appareils.
         );
     }
 }
