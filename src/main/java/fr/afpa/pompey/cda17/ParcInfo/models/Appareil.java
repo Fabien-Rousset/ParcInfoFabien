@@ -1,6 +1,10 @@
 package fr.afpa.pompey.cda17.ParcInfo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Appareil class represents a device or equipment in the system.
@@ -8,6 +12,7 @@ import lombok.Data;
  * boilerplate code such as getters, setters, equals, hashCode, and toString methods.
  */
 @Data
+@NoArgsConstructor
 public class Appareil {
 
     /**
@@ -19,4 +24,9 @@ public class Appareil {
      * The name or label of the Appareil.
      */
     private String libelle;
+
+    /**
+     * The proprietaires of the Appareil.
+     */
+    private List<Personne> proprietaires = new ArrayList<>();
 }

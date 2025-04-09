@@ -164,6 +164,19 @@ header .alert.alert-danger {
   border-color: darkred;
   color: darkred;
 }
+main.index:not(.error) {
+  text-align: center;
+}
+main.peripheriques table {
+  min-width: unset;
+  width: unset;
+  margin: 0 auto;
+  border: 1px solid var(--color-component);
+}
+main.peripheriques table tr th,
+main.peripheriques table tr td {
+  max-width: 5rem;
+}
 main.personnes table {
   border: 1px solid var(--color-component);
 }

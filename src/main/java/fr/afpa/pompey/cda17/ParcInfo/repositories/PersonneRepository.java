@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Slf4j
 @Component
 public class PersonneRepository {
@@ -22,17 +24,17 @@ public class PersonneRepository {
      * Fetches all Personne objects from the API.
      * @return Iterable of Personne objects.
      */
-    public Iterable<Personne> getPersonnes() {
+    public List<Personne> getPersonnes() {
         String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
         String getPersonnesUrl = baseApiUrl + "/personnes"; // Endpoint for fetching all Personne objects.
 
         RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
-        ResponseEntity<Iterable<Personne>> response =
+        ResponseEntity<List<Personne>> response =
                 restTemplate.exchange(
                         getPersonnesUrl,
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<Iterable<Personne>>() {} // Response type for a list of Personne.
+                        new ParameterizedTypeReference<>() {}
                 );
 
         return response.getBody(); // Returns the response body containing the list of Personne.

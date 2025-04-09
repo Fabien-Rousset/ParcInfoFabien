@@ -1,9 +1,10 @@
 package fr.afpa.pompey.cda17.ParcInfo.controllers;
 
 // Import necessary classes and services
+
 import fr.afpa.pompey.cda17.ParcInfo.models.Appareil;
 import fr.afpa.pompey.cda17.ParcInfo.models.Personne;
-import fr.afpa.pompey.cda17.ParcInfo.repositories.PersonneRepository;
+import fr.afpa.pompey.cda17.ParcInfo.models.TypePeripherique;
 import fr.afpa.pompey.cda17.ParcInfo.services.AppareilService;
 import fr.afpa.pompey.cda17.ParcInfo.services.PersonneService;
 import lombok.Data;
@@ -13,11 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
 
 @Data
 @Controller

@@ -1,6 +1,7 @@
 package fr.afpa.pompey.cda17.ParcInfo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 // The @Data annotation from Lombok generates boilerplate code such as getters, setters, equals, hashCode, and toString methods.
 @Data
+@NoArgsConstructor
 public class Personne {
 
     // Unique identifier for the person
