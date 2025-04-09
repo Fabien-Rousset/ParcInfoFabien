@@ -1,63 +1,73 @@
-main.personnes{
+main.personnes {
+  // Style for the table inside the 'main.personnes' class
+  table {
+    border: 1px solid var(--color-component); // Add a border using a CSS variable
 
-  table{
-    border: 1px solid var(--color-component);
-
-    @media (max-width: 1384px){
-      tr{
-        th:nth-child(3), td:nth-child(3),
-        th:nth-child(5), td:nth-child(5){
+    // Responsive design: Hide specific columns when the screen width is 1384px or less
+    @media (max-width: 1384px) {
+      tr {
+        th:nth-child(3), td:nth-child(3), // Hide the 3rd column
+        th:nth-child(5), td:nth-child(5) { // Hide the 5th column
           display: none;
         }
       }
     }
   }
 
-  form{
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
+  // Style for the form inside the 'main.personnes' class
+  form {
+    display: flex; // Use flexbox for layout
+    flex-flow: row wrap; // Arrange items in rows and wrap them if necessary
+    width: 100%; // Make the form take the full width
 
-    div.form-group{
-      display: flex;
-      flex-flow: column;
-      justify-content: center;
-      margin: 1.5rem 2.5%;
+    // Style for form groups inside the form
+    div.form-group {
+      display: flex; // Use flexbox for layout
+      flex-flow: column; // Arrange items in a column
+      justify-content: center; // Center items vertically
+      margin: 1.5rem 2.5%; // Add margin around the group
 
-      width: 95%;
-      min-width: 340px;
+      width: 95%; // Set the width to 95% of the parent
+      min-width: 340px; // Set a minimum width of 340px
 
-      &:not(:has(button)){
+      // If the form group does not contain a button, make it take the full height
+      &:not(:has(button)) {
         height: 100%;
       }
 
-      &.small{
-        @media (min-width: 787px){
-          width: 20%;
+      // Style for small form groups
+      &.small {
+        @media (min-width: 787px) {
+          width: 20%; // Set width to 20% for screens wider than 787px
         }
       }
 
-      &.middle{
-        @media (min-width: 787px){
-          width: 45%;
+      // Style for middle-sized form groups
+      &.middle {
+        @media (min-width: 787px) {
+          width: 45%; // Set width to 45% for screens wider than 787px
         }
       }
 
+      // Apply padding to all direct children of the form group
       > * {
         padding: 0.5rem;
       }
 
-      input{
-        border: unset;
+      // Style for input elements inside the form group
+      input {
+        border: unset; // Remove the border
       }
 
-      button{
-        cursor: pointer;
+      // Style for button elements inside the form group
+      button {
+        cursor: pointer; // Change the cursor to a pointer on hover
       }
 
-      select[multiple]{
-        height: 20rem;
-        max-height: 60%;
+      // Style for multi-select elements inside the form group
+      select[multiple] {
+        height: 20rem; // Set a fixed height of 20rem
+        max-height: 60%; // Set a maximum height of 60% of the parent
       }
     }
   }
