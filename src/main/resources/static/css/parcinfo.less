@@ -1,124 +1,128 @@
+// Define CSS variables for consistent theming across the application
 :root{
-  --color-background: #f1f1f1;
-  --color-font: #1f1f1f;
-  --color-component: #6e6a6a;
-  --font-family: "Roboto Light";
-  --border-width: 1px;
-  --table-width: 560px;
+  --color-background: #f1f1f1; // Background color for the application
+  --color-font: #1f1f1f; // Default font color
+  --color-component: #6e6a6a; // Background color for components like header and footer
+  --font-family: "Roboto Light"; // Default font family
+  --border-width: 1px; // Default border width
+  --table-width: 560px; // Default table width for responsive design
 }
 
+// Apply global styles to the HTML and body elements
 html, body{
-  font-family: var(--font-family);
-  margin: 0;
-  padding: 0;
-  background-color: var(--color-background);
-  overflow-x: hidden;
+  font-family: var(--font-family); // Use the defined font family
+  margin: 0; // Remove default margin
+  padding: 0; // Remove default padding
+  background-color: var(--color-background); // Set background color
+  overflow-x: hidden; // Prevent horizontal scrolling
 }
 
+// Style header and footer elements and their children
 header > *,
 footer > *{
-  background-color: var(--color-component);
-  color: var(--color-background);
+  background-color: var(--color-component); // Set background color for header/footer
+  color: var(--color-background); // Set text color to contrast with the background
 
   a {
-    color: var(--color-background);
-    text-decoration: none;
+    color: var(--color-background); // Set link color
+    text-decoration: none; // Remove underline from links
   }
 }
 
+// Style the main content area
 main {
-  min-height: 100vh;
-  padding: 0 0.5rem;
+  min-height: 100vh; // Ensure the main content takes up the full viewport height
+  padding: 0 0.5rem; // Add horizontal padding
 }
 
+// Style h4 elements
 h4{
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  margin: 2rem auto;
+  display: block; // Ensure h4 is a block element
+  width: 100%; // Set width to 100%
+  overflow-x: auto; // Allow horizontal scrolling if content overflows
+  margin: 2rem auto; // Center the element with vertical spacing
 
   @media (min-width: 465px){
-    max-width: 50%;
+    max-width: 50%; // Restrict width on larger screens
   }
 
   a{
-    float: right;
-    padding: 0.5rem;
-    background-color: rgba(0, 0, 0, .05);
-    border-radius: 0.5rem;
-    color: green;
-    text-decoration: none;
+    float: right; // Align links to the right
+    padding: 0.5rem; // Add padding around links
+    background-color: rgba(0, 0, 0, .05); // Light background for links
+    border-radius: 0.5rem; // Round the corners
+    color: green; // Set link color to green
+    text-decoration: none; // Remove underline from links
 
     &:hover{
-      background-color: rgba(0, 0, 0, .2);
+      background-color: rgba(0, 0, 0, .2); // Darken background on hover
     }
   }
 }
 
+// Style responsive tables
 .table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  margin: 2rem auto;
+  display: block; // Ensure the table is a block element
+  width: 100%; // Set width to 100%
+  overflow-x: auto; // Allow horizontal scrolling for overflow
+  margin: 2rem auto; // Center the table with vertical spacing
 
   @media (min-width: 677px) {
-    max-width: 50%;
+    max-width: 50%; // Restrict width on larger screens
   }
 
   table{
-    min-width: 677px;
-    margin-bottom: 1rem;
-    background-color: transparent;
-    width: 100%;
+    min-width: 677px; // Set minimum width for tables
+    margin-bottom: 1rem; // Add spacing below tables
+    background-color: transparent; // Transparent background
+    width: 100%; // Set width to 100%
 
     tr{
-      border: var(--border-width) solid var(--color-component);
-      border-collapse: collapse;
+      border: var(--border-width) solid var(--color-component); // Add border to rows
+      border-collapse: collapse; // Collapse borders
 
       th, td {
-        padding: 0.5rem;
+        padding: 0.5rem; // Add padding to table cells
       }
     }
 
     &.table-striped {
-
       thead{
-
         tr:nth-of-type(odd) {
-          background-color: rgba(0, 0, 0, .05);
+          background-color: rgba(0, 0, 0, .05); // Alternate row background color
         }
 
         tr:last-of-type{
           th{
-            border-bottom: 2px solid var(--color-component);
+            border-bottom: 2px solid var(--color-component); // Add thicker border to the last row
           }
         }
       }
 
       tbody{
         tr:nth-of-type(odd) {
-          background-color: rgba(0, 0, 0, .05);
+          background-color: rgba(0, 0, 0, .05); // Alternate row background color
         }
 
         tr{
           td:last-child {
             a {
-              padding: 0.25rem;
-              text-decoration: none;
+              padding: 0.25rem; // Add padding to links
+              text-decoration: none; // Remove underline from links
 
               &.warn {
-                color: orange;
+                color: orange; // Set warning link color
 
                 &:hover {
-                  color: darkorange;
+                  color: darkorange; // Darken color on hover
                 }
               }
 
               &.danger {
-                color: red;
+                color: red; // Set danger link color
 
                 &:hover {
-                  color: darkred;
+                  color: darkred; // Darken color on hover
                 }
               }
             }
@@ -129,6 +133,7 @@ h4{
   }
 }
 
+// Import additional styles for header, main, and footer
 @import "header";
 @import "main";
 @import "footer";

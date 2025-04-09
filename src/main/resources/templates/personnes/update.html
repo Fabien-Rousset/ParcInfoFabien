@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Modifier - Personnes - Parcinfo</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/parcinfo.min.css}"/>
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="personnes">
+    <h2>Modifier une personne</h2>
+    <div>
+        <form
+                method="post"
+                th:object="${personne}"
+        >
+            <input th:field="*{id}" type="hidden"/>
+            <div class="form-group middle">
+                <label>Prénom</label>
+                <input
+                        aria-describedby="prenomHelp"
+                        class="form-control"
+                        id="prenomInput"
+                        placeholder="Prénom"
+                        th:field="*{prenom}"
+                        type="text"
+                />
+                <small>Veuillez saisir le prénom</small>
+            </div>
+            <div class="form-group middle">
+                <label>Nom</label>
+                <input
+                        aria-describedby="prenomHelp"
+                        class="form-control"
+                        id="nomInput"
+                        placeholder="Nom"
+                        th:field="*{nom}"
+                        type="text"
+                />
+                <small>Veuillez saisir le nom</small>
+            </div>
+            <div class="form-group large">
+                <label>Adresse</label>
+                <input
+                        aria-describedby="prenomHelp"
+                        class="form-control"
+                        id="adresseInput"
+                        placeholder="Adresse"
+                        th:field="*{adresse}"
+                        type="text"
+                />
+                <small>Veuillez saisir l'adresse</small>
+            </div>
+            <div class="form-group small">
+                <label>Téléphone</label>
+                <input
+                        aria-describedby="prenomHelp"
+                        class="form-control"
+                        id="telephoneInput"
+                        placeholder="Téléphone"
+                        th:field="*{telephone}"
+                        type="text"
+                />
+                <small>Veuillez saisir le téléphone</small>
+            </div>
+            <div class="form-group small">
+                <label>Date de naissance</label>
+                <input
+                        aria-describedby="prenomHelp"
+                        class="form-control"
+                        id="dateNaissanceInput"
+                        placeholder="Date de naissance"
+                        th:field="*{dateNaissance}"
+                        type="text"
+                />
+                <small>Veuillez saisir la date de naissance</small>
+            </div>
+
+            <div class="form-group large">
+              <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+</html>

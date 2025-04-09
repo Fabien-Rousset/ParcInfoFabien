@@ -164,6 +164,9 @@ header .alert.alert-danger {
   border-color: darkred;
   color: darkred;
 }
+main.personnes table {
+  border: 1px solid var(--color-component);
+}
 @media (max-width: 1384px) {
   main.personnes table tr th:nth-child(3),
   main.personnes table tr td:nth-child(3),
@@ -181,9 +184,12 @@ main.personnes form div.form-group {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  margin: 0 2.5%;
+  margin: 1.5rem 2.5%;
   width: 95%;
   min-width: 340px;
+}
+main.personnes form div.form-group:not(:has(button)) {
+  height: 100%;
 }
 @media (min-width: 787px) {
   main.personnes form div.form-group.small {
@@ -203,6 +209,10 @@ main.personnes form div.form-group input {
 }
 main.personnes form div.form-group button {
   cursor: pointer;
+}
+main.personnes form div.form-group select[multiple] {
+  height: 20rem;
+  max-height: 60%;
 }
 footer .footer-inner {
   padding: 0.5rem 0;
