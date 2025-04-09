@@ -164,6 +164,9 @@ header .alert.alert-danger {
   border-color: darkred;
   color: darkred;
 }
+main.personnes table {
+  border: 1px solid var(--color-component);
+}
 @media (max-width: 1384px) {
   main.personnes table tr th:nth-child(3),
   main.personnes table tr td:nth-child(3),

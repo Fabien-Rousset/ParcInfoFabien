@@ -19,7 +19,8 @@
 <header th:insert="fragments/header"></header>
 <main class="personnes">
     <h2>Appareils affectés à
-        <span th:text="${personne.prenom}"></span>
+        <span
+                th:text="${personne.id + ' - ' + personne.prenom + ' ' + personne.nom}"></span>
     </h2>
     <div>
         <form method="post" th:object="${personne}">
