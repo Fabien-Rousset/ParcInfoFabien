@@ -20,11 +20,14 @@ main.personnes{
       display: flex;
       flex-flow: column;
       justify-content: center;
-      margin: 0 2.5%;
+      margin: 1.5rem 2.5%;
 
       width: 95%;
       min-width: 340px;
-      height: 100%;
+
+      &:not(:has(button)){
+        height: 100%;
+      }
 
       &.small{
         @media (min-width: 787px){

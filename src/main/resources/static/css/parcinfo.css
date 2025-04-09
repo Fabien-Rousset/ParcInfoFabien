@@ -181,9 +181,11 @@ main.personnes form div.form-group {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  margin: 0 2.5%;
+  margin: 1.5rem 2.5%;
   width: 95%;
   min-width: 340px;
+}
+main.personnes form div.form-group:not(:has(button)) {
   height: 100%;
 }
 @media (min-width: 787px) {
