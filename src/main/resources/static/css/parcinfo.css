@@ -167,15 +167,55 @@ header .alert.alert-danger {
 main.index:not(.error) {
   text-align: center;
 }
-main.peripheriques table {
+main.peripheriques .table-responsive {
+  max-height: 85vh;
+  width: fit-content;
+}
+main.peripheriques .table-responsive table {
   min-width: unset;
   width: unset;
   margin: 0 auto;
   border: 1px solid var(--color-component);
 }
-main.peripheriques table tr th,
-main.peripheriques table tr td {
-  max-width: 5rem;
+main.peripheriques form {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+main.peripheriques form div.form-group {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 1.5rem 2.5%;
+  width: 95%;
+  min-width: 340px;
+}
+main.peripheriques form div.form-group:not(:has(button)) {
+  height: 100%;
+}
+@media (min-width: 787px) {
+  main.peripheriques form div.form-group.small {
+    width: 20%;
+  }
+}
+@media (min-width: 787px) {
+  main.peripheriques form div.form-group.middle {
+    width: 45%;
+  }
+}
+main.peripheriques form div.form-group > * {
+  padding: 0.5rem;
+}
+main.peripheriques form div.form-group input,
+main.peripheriques form div.form-group select {
+  border: unset;
+}
+main.peripheriques form div.form-group button {
+  cursor: pointer;
+}
+main.peripheriques form div.form-group select[multiple] {
+  height: 20rem;
+  max-height: 60%;
 }
 main.personnes table {
   border: 1px solid var(--color-component);

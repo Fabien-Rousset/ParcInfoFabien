@@ -1,14 +1,71 @@
 main.peripheriques{
-  table{
 
-    min-width: unset;
-    width: unset;
-    margin: 0 auto;
-    border: 1px solid var(--color-component);
+  .table-responsive{
+    max-height: 85vh;
+    width: fit-content;
 
-    tr{
-      th, td{
-        max-width: 5rem;
+    table{
+      min-width: unset;
+      width: unset;
+      margin: 0 auto;
+      border: 1px solid var(--color-component);
+    }
+  }
+
+  // Style for the form inside the 'main.peropheriques' class
+  form {
+    display: flex; // Use flexbox for layout
+    flex-flow: row wrap; // Arrange items in rows and wrap them if necessary
+    width: 100%; // Make the form take the full width
+
+    // Style for form groups inside the form
+    div.form-group {
+      display: flex; // Use flexbox for layout
+      flex-flow: column; // Arrange items in a column
+      justify-content: center; // Center items vertically
+      margin: 1.5rem 2.5%; // Add margin around the group
+
+      width: 95%; // Set the width to 95% of the parent
+      min-width: 340px; // Set a minimum width of 340px
+
+      // If the form group does not contain a button, make it take the full height
+      &:not(:has(button)) {
+        height: 100%;
+      }
+
+      // Style for small form groups
+      &.small {
+        @media (min-width: 787px) {
+          width: 20%; // Set width to 20% for screens wider than 787px
+        }
+      }
+
+      // Style for middle-sized form groups
+      &.middle {
+        @media (min-width: 787px) {
+          width: 45%; // Set width to 45% for screens wider than 787px
+        }
+      }
+
+      // Apply padding to all direct children of the form group
+      > * {
+        padding: 0.5rem;
+      }
+
+      // Style for input & select elements inside the form group
+      input, select {
+        border: unset; // Remove the border
+      }
+
+      // Style for button elements inside the form group
+      button {
+        cursor: pointer; // Change the cursor to a pointer on hover
+      }
+
+      // Style for multi-select elements inside the form group
+      select[multiple] {
+        height: 20rem; // Set a fixed height of 20rem
+        max-height: 60%; // Set a maximum height of 60% of the parent
       }
     }
   }
