@@ -142,6 +142,10 @@ header nav ul {
 }
 header nav ul li {
   padding: 0 0.5rem;
+  display: none;
+}
+header nav ul li:has([href]) {
+  display: block;
 }
 @media (max-width: 494px) {
   header nav ul li {

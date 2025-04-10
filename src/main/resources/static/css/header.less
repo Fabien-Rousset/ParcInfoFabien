@@ -52,6 +52,11 @@ header {
 
       li {
         padding: 0 0.5rem; // Add horizontal padding
+        display: none;
+
+        &:has([href]){
+          display: block;
+        }
 
         // For screens with a max width of 494px
         @media (max-width: 494px) {

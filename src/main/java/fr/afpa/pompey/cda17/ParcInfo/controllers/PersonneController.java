@@ -27,16 +27,28 @@ public class PersonneController {
     @Autowired
     private AppareilService appareilService;
 
-    // Display the list of all Personne entities
+    /**
+     * Display the list of all Personne entities.
+     * 
+     * @param model The model to pass data to the view.
+     * @return The view name for listing Personne entities.
+     */
     @GetMapping("/personnes")
     public String index(Model model) {
         // Fetch all Personne entities and add them to the model
         Iterable<Personne> listPersonnes = service.getPersonnes();
         model.addAttribute("personnes", listPersonnes);
-        return "personnes/index"; // Return the view for listing Personne entities
+        return "personnes/index";
     }
 
-    // Handle POST requests to display the list of Personne entities with additional attributes
+    /**
+     * Handle POST requests to display the list of Personne entities with additional attributes.
+     * 
+     * @param model The model to pass data to the view.
+     * @param alert The alert message to display.
+     * @param type  The type of alert (e.g., success, danger).
+     * @return The view name for listing Personne entities.
+     */
     @PostMapping("/personnes")
     public String index(Model model,
                         @ModelAttribute("alert") String alert,
@@ -49,14 +61,25 @@ public class PersonneController {
         return "personnes/index"; // Return the view for listing Personne entities
     }
 
-    // Display the form to create a new Personne
+    /**
+     * Display the form to create a new Personne.
+     * 
+     * @param model The model to pass data to the view.
+     * @return The view name for creating a Personne.
+     */
     @GetMapping("/personnes/create")
     public String create(Model model) {
         model.addAttribute("personne", new Personne()); // Add an empty Personne object to the model
         return "personnes/create"; // Return the view for creating a Personne
     }
 
-    // Handle the creation of a new Personne
+    /**
+     * Handle the creation of a new Personne.
+     * 
+     * @param personne           The Personne object to create.
+     * @param redirectAttributes Attributes for redirect scenarios.
+     * @return A RedirectView to the appropriate page.
+     */
     @PostMapping("/personnes/create")
     public RedirectView create(@ModelAttribute("personne") Personne personne,
                                RedirectAttributes redirectAttributes) {
@@ -72,7 +95,13 @@ public class PersonneController {
         }
     }
 
-    // Display the form to update an existing Personne
+    /**
+     * Display the form to update an existing Personne.
+     * 
+     * @param model The model to pass data to the view.
+     * @param id    The ID of the Personne to update.
+     * @return The view name for updating a Personne.
+     */
     @GetMapping("/personnes/{id}/update")
     public String update(Model model, @PathVariable("id") int id) {
         Personne personne = service.getPersonne(id); // Fetch the Personne by ID
@@ -80,7 +109,14 @@ public class PersonneController {
         return "personnes/update"; // Return the view for updating a Personne
     }
 
-    // Handle the update of an existing Personne
+    /**
+     * Handle the update of an existing Personne.
+     * 
+     * @param personne           The updated Personne object.
+     * @param id                 The ID of the Personne to update.
+     * @param redirectAttributes Attributes for redirect scenarios.
+     * @return A RedirectView to the appropriate page.
+     */
     @PostMapping("/personnes/{id}/update")
     public RedirectView update(@ModelAttribute("personne") Personne personne,
                                @PathVariable("id") int id,
@@ -105,7 +141,13 @@ public class PersonneController {
         }
     }
 
-    // Handle the deletion of a Personne
+    /**
+     * Handle the deletion of a Personne.
+     * 
+     * @param id                 The ID of the Personne to delete.
+     * @param redirectAttributes Attributes for redirect scenarios.
+     * @return A RedirectView to the list of Personne entities.
+     */
     @PostMapping("/personnes/{id}/delete")
     public RedirectView delete(@PathVariable("id") int id,
                                RedirectAttributes redirectAttributes) {
