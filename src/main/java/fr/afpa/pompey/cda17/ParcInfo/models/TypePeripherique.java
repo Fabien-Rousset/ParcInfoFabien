@@ -28,4 +28,12 @@ public enum TypePeripherique {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return this.name().charAt(0) + this.name()
+                .substring(1)
+                .replace('_',' ')
+                .toLowerCase();
+    }
 }

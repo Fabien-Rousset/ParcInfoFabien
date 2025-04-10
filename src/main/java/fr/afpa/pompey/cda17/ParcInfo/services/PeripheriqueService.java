@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Data
 @Service
 public class PeripheriqueService {
@@ -33,12 +35,16 @@ public class PeripheriqueService {
     public Peripherique save(Peripherique peripherique) {
         Peripherique saved;
 
-        if(peripherique.getId() == 0){
+        if(peripherique.getIdAppareil() == 0){
             saved = peripheriqueRepository.createPeripherique(peripherique);
         }else{
             saved = peripheriqueRepository.updatePeripherique(peripherique);
         }
 
         return saved;
+    }
+
+    public void affect(Peripherique peripherique, String[] personnes) {
+        peripheriqueRepository.affectPersonnes(peripherique, personnes);
     }
 }

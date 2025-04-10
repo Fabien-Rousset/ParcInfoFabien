@@ -57,13 +57,4 @@ public class PersonneService {
 
         return saved;
     }
-
-    /**
-     * Assigns a list of Appareils to a Personne.
-     * @param personne The Personne to whom the Appareils will be assigned.
-     * @param appareils An array of Appareil identifiers to assign.
-     */
-    public void affectAppareils(Personne personne, String[] appareils) {
-        personneRepository.affectAppareils(personne, appareils);
-    }
 }

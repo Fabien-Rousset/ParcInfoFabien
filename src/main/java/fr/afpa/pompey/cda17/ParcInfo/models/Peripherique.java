@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class Peripherique {
 
     // Unique identifier for the peripherique
-    private long id;
+    private long idAppareil;
 
     // Type of the peripherique
     private TypePeripherique type;

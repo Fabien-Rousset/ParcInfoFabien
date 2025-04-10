@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Slf4j
 @Component
@@ -93,5 +95,20 @@ public class PeripheriqueRepository {
         );
 
         return  response.getBody();
+    }
+
+    public void affectPersonnes(Peripherique peripherique, String[] personnes) {
+        String baseApiUrl = props.getApiUrl();
+        String affectUrl = baseApiUrl + "/peripherique/"+peripherique.getIdAppareil()+
+                "/personnes";
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String[]> request = new HttpEntity<>(personnes);
+        restTemplate.exchange(
+                affectUrl,
+                HttpMethod.PUT,
+                request,
+                Void.class
+        );
     }
 }

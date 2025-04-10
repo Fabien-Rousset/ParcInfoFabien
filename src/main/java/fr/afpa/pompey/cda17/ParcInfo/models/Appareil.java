@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Appareil class represents a device or equipment in the system.
@@ -29,4 +30,14 @@ public class Appareil {
      * The proprietaires of the Appareil.
      */
     private List<Personne> proprietaires = new ArrayList<>();
+
+    public boolean estAffecte(){
+        return !this.getProprietaires().isEmpty();
+    }
+
+    public String getProprietairesIdentites() {
+        return this.getProprietaires().stream()
+                .map(p -> p.getPrenom() + ' ' + p.getNom())
+                .collect(Collectors.joining(", "));
+    }
 }

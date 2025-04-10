@@ -119,32 +119,4 @@ public class PersonneController {
         }
         return new RedirectView("/personnes"); // Redirect to the list of Personne entities
     }
-
-    // Display the form to assign Appareils to a Personne
-    @GetMapping("/personnes/{id}/affect")
-    public String affect(Model model, @PathVariable("id") int id) {
-        Personne personne = service.getPersonne(id); // Fetch the Personne by ID
-        Iterable<Appareil> appareils = appareilService.getAppareils(); // Fetch all Appareils
-
-        model.addAttribute("personne", personne); // Add the Personne to the model
-        model.addAttribute("listAppareils", appareils); // Add the list of Appareils to the model
-        return "personnes/affect"; // Return the view for assigning Appareils
-    }
-
-    // Handle the assignment of Appareils to a Personne
-    @PostMapping("/personnes/{id}/affect")
-    public RedirectView affect(@RequestParam("appareils") String[] appareilIds,
-                               @PathVariable("id") int id,
-                               RedirectAttributes redirectAttributes) {
-        try {
-            Personne personne = service.getPersonne(id); // Fetch the Personne by ID
-            service.affectAppareils(personne, appareilIds); // Assign the selected Appareils to the Personne
-            redirectAttributes.addFlashAttribute("type", "success");
-            redirectAttributes.addFlashAttribute("alert", "Appareils affectés!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("type", "danger");
-            redirectAttributes.addFlashAttribute("alert", "Un problème a été rencontré!");
-        }
-        return new RedirectView("/personnes"); // Redirect to the list of Personne entities
-    }
 }

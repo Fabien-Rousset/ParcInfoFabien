@@ -118,24 +118,4 @@ public class PersonneRepository {
 
         return response.getBody(); // Returns the response body containing the updated Personne.
     }
-
-    /**
-     * Assigns a list of appareils to a specific Personne in the API.
-     * @param personne The Personne to whom the appareils will be assigned.
-     * @param appareils The list of appareils to assign.
-     */
-    public void affectAppareils(Personne personne, String[] appareils) {
-        String baseApiUrl = props.getApiUrl(); // Base API URL from properties.
-        String affectAppareilsUrl =
-                baseApiUrl + "/personne/" + personne.getId() + "/appareils"; // Endpoint for assigning appareils to a Personne.
-
-        RestTemplate restTemplate = new RestTemplate(); // RestTemplate for making HTTP requests.
-        HttpEntity<String[]> request = new HttpEntity<>(appareils); // Wraps the appareils array in an HTTP request.
-        restTemplate.exchange(
-                affectAppareilsUrl,
-                HttpMethod.PUT,
-                request,
-                Personne.class // Response type for the updated Personne after assigning appareils.
-        );
-    }
 }
