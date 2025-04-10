@@ -27,25 +27,42 @@
       <thead>
       <tr>
         <th>Libellé</th>
+        <th>Type</th>
+        <th>Locataires</th>
       </tr>
       </thead>
       <tbody>
       <tr th:if="${#lists.isEmpty(peripheriques)}">
-        <td colspan="5" class="text-center">
-          Aucune personne en base de données.
+        <td colspan="3" class="text-center">
+          Aucun périphérique en base de données.
         </td>
       </tr>
       <tr th:each="peri : ${peripheriques}">
         <td th:text="${peri.appareil.libelle}">Libellé</td>
+        <td th:text="${peri.type}">Libellé</td>
+        <td th:text="${peri.appareil.getProprietairesIdentites()}"
+            th:class="${peri.appareil.estAffecte ? 'affected' : 'free'}"></td>
         <td>
-          <a class="warn">
+          <a title="Affecter un périphérique à une personne"
+             th:href="@{/peripheriques/{id}/affect(id=${peri.idAppareil})}"
+             class="warn">
+            <span class="material-symbols-outlined">link</span>
+          </a>
+          <a title="Modifier un périphérique"
+             th:href="@{/peripheriques/{id}/update(id=${peri.idAppareil})}"
+             class="warn">
             <span class="material-symbols-outlined">edit</span>
           </a>
-          <a href="#" onclick="confirmDelete(this)"
-             class="danger"
-          >
+          <a title="Supprimer un périphérique"
+             href="#"
+             onclick="confirmDelete(this)"
+             class="danger">
             <span class="material-symbols-outlined">delete</span>
           </a>
+          <form id
+                th:action="@{/peripheriques/{id}/delete(id=${peri.idAppareil})}" method="post">
+            <input type="hidden" name="id" th:value="${peri.idAppareil}" />
+          </form>
         </td>
       </tr>
       </tbody>
@@ -56,12 +73,12 @@
 </body>
 <script>
   function confirmDelete(element) {
-    const personne =
+    const peripherique =
             Array.from(element.parentElement.parentElement.children)
-                    .filter((el, idx) => {return idx < 2})
+                    .filter((el, idx) => {return idx < 1})
                     .map((el) => {return el.innerText})
                     .join(" ");
-    if(confirm('Confirmez vous la suppression de '+personne+' ?')) {
+    if(confirm('Confirmez vous la suppression de '+peripherique+' ?')) {
       element.nextElementSibling.submit();
     }
   }
