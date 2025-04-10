@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accueil - Périphérique - Parcinfo</title>
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto"
+  />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+  />
+  <link th:href="@{/css/parcinfo.min.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="peripheriques">
+  <h2>Liste des périphériques</h2>
+  <h4>
+    <a th:href="@{/peripheriques/create }">Ajouter un nouveau périphérique</a>
+  </h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th>Libellé</th>
+        <th>Type</th>
+        <th>Locataires</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${#lists.isEmpty(peripheriques)}">
+        <td colspan="3" class="text-center">
+          Aucun périphérique en base de données.
+        </td>
+      </tr>
+      <tr th:each="peri : ${peripheriques}">
+        <td th:text="${peri.appareil.libelle}">Libellé</td>
+        <td th:text="${peri.type}">Libellé</td>
+        <td th:text="${peri.appareil.getProprietairesIdentites()}"
+            th:class="${peri.appareil.estAffecte ? 'affected' : 'free'}"></td>
+        <td>
+          <a title="Affecter un périphérique à une personne"
+             th:href="@{/peripheriques/{id}/affect(id=${peri.idAppareil})}"
+             class="warn">
+            <span class="material-symbols-outlined">link</span>
+          </a>
+          <a title="Modifier un périphérique"
+             th:href="@{/peripheriques/{id}/update(id=${peri.idAppareil})}"
+             class="warn">
+            <span class="material-symbols-outlined">edit</span>
+          </a>
+          <a title="Supprimer un périphérique"
+             href="#"
+             onclick="confirmDelete(this)"
+             class="danger">
+            <span class="material-symbols-outlined">delete</span>
+          </a>
+          <form id
+                th:action="@{/peripheriques/{id}/delete(id=${peri.idAppareil})}" method="post">
+            <input type="hidden" name="id" th:value="${peri.idAppareil}" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+<script>
+  function confirmDelete(element) {
+    const peripherique =
+            Array.from(element.parentElement.parentElement.children)
+                    .filter((el, idx) => {return idx < 1})
+                    .map((el) => {return el.innerText})
+                    .join(" ");
+    if(confirm('Confirmez vous la suppression de '+peripherique+' ?')) {
+      element.nextElementSibling.submit();
+    }
+  }
+</script>
+</html>
