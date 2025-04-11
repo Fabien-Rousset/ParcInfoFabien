@@ -3,7 +3,6 @@ package fr.afpa.pompey.cda17.ParcInfo.controllers;
 import fr.afpa.pompey.cda17.ParcInfo.models.Peripherique;
 import fr.afpa.pompey.cda17.ParcInfo.models.Personne;
 import fr.afpa.pompey.cda17.ParcInfo.models.TypePeripherique;
-import fr.afpa.pompey.cda17.ParcInfo.repositories.PeripheriqueRepository;
 import fr.afpa.pompey.cda17.ParcInfo.services.PeripheriqueService;
 import fr.afpa.pompey.cda17.ParcInfo.services.PersonneService;
 import lombok.Data;

@@ -34,3 +34,4 @@ build/
 /src/main/resources/application.properties
 logs/app.log
 sonar.sh
+/logs/app.log.2025-04-10.0.gz

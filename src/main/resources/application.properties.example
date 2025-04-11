@@ -1,20 +1,29 @@
 spring.application.name=ParcInfo
 
-#port par défaut
 server.port=8081
 
-#niveau de level logging
 logging.level.root=error
 
-#pour mon package
 logging.level.fr.afpa.pompey.cda17=info
 
-#pour la BDD
 logging.level.org.springframework.data=INFO
 logging.level.org.springframework.jdbc.core.JdbcTemplate=DEBUG
 
-#niveau de level logging pour TOMCAT
 logging.level.org.springframework.boot.web.embedded.tomcat=INFO
 
-#custom config
+# Log to a file
+logging.file.name=logs/app.log
+
+# Console log pattern
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+
+# File log pattern
+logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+
+
 fr.afpa.pompey.cda17.apiUrl=http://localhost:8082
+
+server.error.include-exception=true
+server.error.include-stacktrace=always
+server.error.whitelabel.enabled=false
+server.error.path=/error
