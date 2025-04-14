@@ -5,4 +5,4 @@ Répartitions des rôles
 - Scrum Master: Fabien
 - Lead Developper: Lucas
 - Lead Test: Kenza
-- Lead Deploiement: Benjamin
+- Lead Deploiement: Lucas
