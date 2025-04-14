@@ -11,6 +11,6 @@
         <li><a href="/personnes">Personnes</a></li>
     </ul>
 </nav>
-<div th:if="${alert}" th:class="'alert alert-' + ${type}">
+<div id="alertBox" th:if="${alert}" th:class="'alert alert-' + ${type}">
     <span th:text="${alert}"></span>
 </div>

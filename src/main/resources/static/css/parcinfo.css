@@ -1,7 +1,9 @@
 :root {
-  --color-background: #f1f1f1;
-  --color-font: #1f1f1f;
-  --color-component: #6e6a6a;
+  --color-background: #E5F0CC;
+  --color-font: #172121;
+  --color-font-light: #444554;
+  --color-component: #7F7B82;
+  --color-component-light: #BFACB5;
   --font-family: "Roboto Light";
   --border-width: 1px;
   --table-width: 560px;

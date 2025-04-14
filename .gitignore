@@ -35,3 +35,4 @@ build/
 logs/app.log
 sonar.sh
 /logs/app.log.2025-04-10.0.gz
+logs/app.log.2025-04-11.0.gz
