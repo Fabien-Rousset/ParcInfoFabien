@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 14 avr. 2025 à 07:01
+-- Généré le : mar. 15 avr. 2025 à 06:56
 -- Version du serveur : 9.1.0
--- Version de PHP : 8.3.14
+-- Version de PHP : 8.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `appareils` (
   `id_appareil` bigint NOT NULL AUTO_INCREMENT,
   `libelle` varchar(30) NOT NULL,
   PRIMARY KEY (`id_appareil`)
-) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=848 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `appareils`
@@ -54,7 +54,32 @@ INSERT INTO `appareils` (`id_appareil`, `libelle`) VALUES
 (165, 'Blue Yéti - 3'),
 (166, 'Blue Yéti - 4'),
 (167, 'Blue Yéti - 5'),
-(168, 'Lexmark B125 - 1');
+(168, 'Lexmark B125 - 1'),
+(399, 'Asus 15\"'),
+(400, 'Asus 17\"'),
+(600, 'Oneplus 8T'),
+(601, 'Oneplus 5T - 2');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ordinateurs`
+--
+
+DROP TABLE IF EXISTS `ordinateurs`;
+CREATE TABLE IF NOT EXISTS `ordinateurs` (
+  `id_appareil` bigint NOT NULL,
+  `de_bureau` bit(1) NOT NULL,
+  PRIMARY KEY (`id_appareil`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `ordinateurs`
+--
+
+INSERT INTO `ordinateurs` (`id_appareil`, `de_bureau`) VALUES
+(399, b'1'),
+(400, b'0');
 
 -- --------------------------------------------------------
 
@@ -106,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `personnes` (
   `prenom` varchar(25) NOT NULL,
   `telephone` varchar(15) NOT NULL,
   PRIMARY KEY (`id_personne`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `personnes`
@@ -115,7 +140,9 @@ CREATE TABLE IF NOT EXISTS `personnes` (
 INSERT INTO `personnes` (`id_personne`, `adresse`, `date_naissance`, `nom`, `prenom`, `telephone`) VALUES
 (46, '67b rue de la Cheneau', '1992-12-21', 'Kuntz', 'Lucas', '0778810469'),
 (47, '4 rue de Sarre', '1978-10-24', 'Pierson', 'Hervé', '0387215487'),
-(48, '1 rue du Pré Longeau', '1960-05-28', 'Condé', 'Geneviève', '0341742742');
+(48, '1 rue du Pré Longeau', '1960-05-28', 'Condé', 'Geneviève', '0341742742'),
+(94, '15 rue des Roches', '1991-10-04', 'Cherkaoui', 'Kenza', '0654879821'),
+(95, '2 Ruelle des moutons', '1992-04-15', 'Rousset', 'Fabien', '075453320');
 
 -- --------------------------------------------------------
 
@@ -141,11 +168,40 @@ INSERT INTO `personnes_appareils` (`proprietaires_id_personne`, `appareils_id_ap
 (47, 153),
 (47, 163),
 (48, 153),
-(48, 163);
+(48, 163),
+(94, 159),
+(95, 160);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `smartphones`
+--
+
+DROP TABLE IF EXISTS `smartphones`;
+CREATE TABLE IF NOT EXISTS `smartphones` (
+  `id_appareil` bigint NOT NULL,
+  `est_smartphone` bit(1) NOT NULL,
+  PRIMARY KEY (`id_appareil`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `smartphones`
+--
+
+INSERT INTO `smartphones` (`id_appareil`, `est_smartphone`) VALUES
+(600, b'1'),
+(601, b'1');
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `ordinateurs`
+--
+ALTER TABLE `ordinateurs`
+  ADD CONSTRAINT `FKe30bhkjl1un1x55e6k1ai701f` FOREIGN KEY (`id_appareil`) REFERENCES `appareils` (`id_appareil`);
 
 --
 -- Contraintes pour la table `peripheriques`
@@ -159,6 +215,12 @@ ALTER TABLE `peripheriques`
 ALTER TABLE `personnes_appareils`
   ADD CONSTRAINT `FK57xevcbmietjb8f99rh2idnlq` FOREIGN KEY (`appareils_id_appareil`) REFERENCES `appareils` (`id_appareil`),
   ADD CONSTRAINT `FKg6pd9enlhoxb1mshonybocacx` FOREIGN KEY (`proprietaires_id_personne`) REFERENCES `personnes` (`id_personne`);
+
+--
+-- Contraintes pour la table `smartphones`
+--
+ALTER TABLE `smartphones`
+  ADD CONSTRAINT `FK9vu4luwhtoieijbw3w9g16heq` FOREIGN KEY (`id_appareil`) REFERENCES `appareils` (`id_appareil`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

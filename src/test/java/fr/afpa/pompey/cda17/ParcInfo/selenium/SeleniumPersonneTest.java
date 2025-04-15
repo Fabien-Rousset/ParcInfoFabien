@@ -1,13 +1,18 @@
 package fr.afpa.pompey.cda17.ParcInfo.selenium;
 
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,5 +116,44 @@ public class SeleniumPersonneTest {
         Assertions.assertEquals(DELETE_ICON_HTML,
                 Objects.requireNonNull(deleteButton.getAttribute("innerHTML")).trim(),
                 "Delete button should contain correct icon markup");
+    }
+
+    @Test
+    public void testPersonnesCreation(){
+        final String PRENOM = "Alain";
+        final String NOM = "Chabat";
+        final String ADRESSE = "5 rue des Nuls";
+        final String TEL = "0384215487";
+
+        driver.get(PERSONNES_URL);
+
+        WebElement mainSection = driver.findElement(By.tagName("main"));
+        WebElement createButton = mainSection.findElement(By.tagName("a"));
+        createButton.click();
+        Assertions.assertEquals(CREATE_PAGE_URL, driver.getCurrentUrl());
+
+        driver.findElement(By.id("prenomInput")).sendKeys(PRENOM);
+        driver.findElement(By.id("nomInput")).sendKeys(NOM);
+        driver.findElement(By.id("adresseInput")).sendKeys(ADRESSE);
+        driver.findElement(By.id("telephoneInput")).sendKeys(TEL);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dateNaissanceInput"))).sendKeys("1958-11-24");
+
+        driver.findElement(By.tagName("button")).click();
+
+        WebElement row = driver.findElement(By.cssSelector("table tbody " +
+                "tr:last-child"));
+
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        Assertions.assertEquals(cells.size(), EXPECTED_ROW_CELL_COUNT);
+        Assertions.assertEquals(PRENOM, cells.get(0).getText());
+        Assertions.assertEquals(NOM, cells.get(1).getText());
+        Assertions.assertEquals(ADRESSE, cells.get(2).getText());
+        Assertions.assertEquals(TEL, cells.get(3).getText());
+        Assertions.assertEquals("24/11/1958", cells.get(4).getText());
+
+        row.findElement(By.cssSelector("[href='#']")).click();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 }
