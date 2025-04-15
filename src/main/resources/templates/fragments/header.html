@@ -1,0 +1,16 @@
+<nav th:fragment="header">
+    <a href="/"><h2>Parc Info</h2></a>
+    <input id="parc-id" name="parc-id" type="checkbox" placeholder="Parc ID">
+    <label for="parc-id">
+        <span class="material-symbols-outlined">menu</span>
+    </label>
+    <ul>
+        <li><a>Ordinateurs</a></li>
+        <li><a>Smartphones</a></li>
+        <li><a href="/peripheriques">Périphériques</a></li>
+        <li><a href="/personnes">Personnes</a></li>
+    </ul>
+</nav>
+<div id="alertBox" th:if="${alert}" th:class="'alert alert-' + ${type}">
+    <span th:text="${alert}"></span>
+</div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creation - Périphérique - Parcinfo</title>
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto"
+  />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+  />
+  <link th:href="@{/css/parcinfo.min.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="peripheriques">
+  <h2>Ajouter un nouveau périphérique</h2>
+  <div>
+    <form
+            th:object="${peripherique}"
+            method="post"
+    >
+      <input type="hidden" th:field="*{id}" />
+      <div class="form-group middle">
+        <label for="libelleInput">Libellé</label>
+        <input
+                type="text"
+                th:field="*{appareil.libelle}"
+                class="form-control"
+                id="libelleInput"
+                aria-describedby="libelleHelp"
+                placeholder="Libellé"
+                required
+        />
+        <small>Veuillez saisir le libellé</small>
+      </div>
+
+      <div class="form-group middle">
+        <label for="typeSelect">Type</label>
+        <select th:id="typeSelect" name="type">
+          <option th:each="type : ${types}"
+                  th:value="${type.name()}"
+                  th:text="${type}"></option>
+        </select>
+        <small>Veuillez choisir le type</small>
+      </div>
+
+      <div class="form-group small">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+</html>

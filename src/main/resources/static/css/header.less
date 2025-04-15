@@ -1,0 +1,90 @@
+header {
+  // Styling for the navigation bar
+  nav {
+    padding: 0.5rem; // Add padding around the navigation bar
+    border-radius: 0 0 0.5rem 0.5rem; // Round the bottom corners of the navigation bar
+
+    h2 {
+      margin: 0; // Remove default margin
+      display: inline-flex; // Align the heading inline with other elements
+    }
+
+    input {
+      display: none; // Hide the input element by default
+
+      // For screens with a max width of 494px
+      @media (max-width: 494px) {
+        // When the input is checked, display the sibling `ul` element
+        &:checked ~ ul {
+          display: inline-flex;
+        }
+
+        // Hide the sibling `ul` element when the input is not checked
+        & ~ ul {
+          display: none;
+        }
+      }
+    }
+
+    label {
+      // Hide the label for screens wider than 495px
+      @media (min-width: 495px) {
+        display: none;
+      }
+
+      span {
+        vertical-align: bottom; // Align the text to the bottom
+        float: right; // Float the span to the right
+      }
+    }
+
+    ul {
+      margin: 0; // Remove default margin
+      list-style: none; // Remove bullet points
+      display: inline-flex; // Display list items inline
+
+      // For screens with a max width of 494px
+      @media (max-width: 494px) {
+        flex-flow: column; // Stack list items vertically
+        width: 100%; // Make the list take up the full width
+        padding: 0; // Remove padding
+      }
+
+      li {
+        padding: 0 0.5rem; // Add horizontal padding
+        display: none;
+
+        &:has([href]){
+          display: block;
+        }
+
+        // For screens with a max width of 494px
+        @media (max-width: 494px) {
+          padding: 0.5rem; // Add padding on all sides
+        }
+      }
+    }
+  }
+
+  // Styling for alert messages
+  .alert {
+    border: 1px solid black; // Add a black border
+    padding: 0.5rem; // Add padding inside the alert
+    margin: 0.5rem; // Add margin outside the alert
+    border-radius: 0.5rem; // Round the corners of the alert
+
+    // Success alert styling
+    &.alert-success {
+      background-color: lightgreen; // Set background color to light green
+      border-color: darkgreen; // Set border color to dark green
+      color: darkgreen; // Set text color to dark green
+    }
+
+    // Danger alert styling
+    &.alert-danger {
+      background-color: lightcoral; // Set background color to light coral
+      border-color: darkred; // Set border color to dark red
+      color: darkred; // Set text color to dark red
+    }
+  }
+}

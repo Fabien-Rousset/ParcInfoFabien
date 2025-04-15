@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affectation - Périphériques - Parcinfo</title>
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto"
+  />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+  />
+  <link th:href="@{/css/parcinfo.min.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+<main class="peripheriques">
+  <h2>Affecter
+    <span th:text="${peripherique.appareil.libelle}"></span>
+  </h2>
+  <div>
+    <form
+            th:object="${peripherique}"
+            method="post"
+    >
+      <input type="hidden" th:field="*{idAppareil}" />
+      <div class="form-group middle">
+        <label for="personnes">Dépositaire du périphérique</label>
+        <select multiple id="personnes" name="personnes">
+          <option th:each="personne : ${personnes}" th:value="${personne.id}"
+                  th:text="${personne.prenom + ' ' + personne.nom}"
+                  th:selected="${peripherique.getAppareil().getProprietaires().contains(personne)}"
+          ></option>
+        </select>
+        <small>Veuillez saisir sélectionner le ou les dépositaire(s)</small>
+      </div>
+
+      <div class="form-group small">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</main>
+<footer th:insert="fragments/footer"></footer>
+</body>
+</html>
