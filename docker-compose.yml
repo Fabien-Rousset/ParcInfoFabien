@@ -1,0 +1,64 @@
+name: 'Parc-info'
+
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql-parcinfo
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: parcinfo
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - "3386:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./conception/parcinfo.sql:/docker-entrypoint-initdb.d/parcinfo.sql:ro
+    networks:
+      - backend
+
+  parcinfo-api:
+    image: fhurai/parcinfo_api:latest
+    container_name: parcinfo-api
+    depends_on:
+      - mysql
+    ports:
+      - "8092:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-parcinfo:3306/parcinfo
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    networks:
+      - backend
+
+  parcinfo:
+    image: fhurai/parcinfo:latest
+    container_name: parcinfo
+    depends_on:
+      - parcinfo-api
+    ports:
+      - "8091:8081"
+    environment:
+      API_URL: http://parcinfo-api:8082
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8088:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_PASSWORD: root
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    bridge

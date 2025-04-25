@@ -4,4 +4,4 @@
 clear 
 
 # Run Maven tests and start the Spring Boot application
-mvn clean package spring-boot:repackage
+set -a && source .env && set +a && clear && mvn clean package spring-boot:repackage

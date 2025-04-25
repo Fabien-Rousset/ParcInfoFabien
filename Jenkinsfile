@@ -40,5 +40,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy docker-compose') {
+            steps {
+                script {
+                    bat 'docker-compose up -d --build --force-recreate --remove-orphans'
+                }
+            }
+        }
     }
 }
