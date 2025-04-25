@@ -56,24 +56,6 @@ pipeline {
                 bat 'docker-compose up -d --build --force-recreate --remove-orphans'
             }
         }
-
-        stage('Notify Discord') {
-            steps {
-                script {
-                    def message = """{
-                        "content": "Build and tests completed successfully! 🎉"
-                    }"""
-
-                    // Send the notification to Discord via Webhook
-                    httpRequest(
-                        url: DISCORD_WEBHOOK_URL,
-                        httpMode: 'POST',
-                        contentType: 'APPLICATION_JSON',
-                        requestBody: message
-                    )
-                }
-            }
-        }
     }
 
     post {
@@ -91,6 +73,34 @@ pipeline {
                   status: buildStatus,
                   adaptiveCards: true
               )
+
+              STATUS="${{ needs.build.result }}"
+                        if [ "$STATUS" = "success" ]; then
+                          COLOR=3066993
+                          MESSAGE="✅ Parc Info API Pipeline Succeeded"
+                          IMAGE_URL="https://c.tenor.com/Ud36Rrav628AAAAC/tenor.gif"
+                        else
+                          COLOR=15158332
+                          MESSAGE="❌ Parc Info API Pipeline Failed"
+                          IMAGE_URL="https://c.tenor.com/nsEfkzN30TIAAAAC/tenor.gif"
+                        fi
+
+                        PAYLOAD=$(cat <<EOF
+                        {
+                          "embeds": [{
+                            "title": "${MESSAGE}",
+                            "description": "**Workflow**: ${{ github.workflow }}\n**Repository**: ${{ github.repository }}\n**Branch**: ${{ github.ref }}\n**Commit**: [${GITHUB_SHA:0:7}](${{ github.server_url }}/${{ github.repository }}/commit/$GITHUB_SHA)",
+                            "color": ${COLOR},
+                            "image": {
+                              "url": "${IMAGE_URL}"
+                            },
+                            "timestamp": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+                          }]
+                        }
+                        EOF
+                        )
+
+                        curl -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$DISCORD_WEBHOOK_URL"
            }
         }
     }
