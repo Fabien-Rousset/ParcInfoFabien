@@ -48,5 +48,17 @@ pipeline {
                 }
             }
         }
+         stage('Notify Discord') {
+            steps {
+                discordSend(
+                    webhookURL: 'https://discord.com/api/webhooks/1362093021692301513/dmNmJ4KADsuBVvuKzGi-x7-j1_yIQjWqNy1G21-ZfKGECgq632sz5DpTeKAeJ7y7bVQJ',
+                    title: env.JOB_NAME,
+                    link: env.BUILD_URL,
+                    description: "Build ${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}",
+                    footer: "Jenkins CI",
+                    result: currentBuild.currentResult
+                )
+            }
+        }
     }
 }
