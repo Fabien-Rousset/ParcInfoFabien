@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment{
+        registry= 'fhurai/parcinfo'
+        registryTag= 'latest'
+    }
     stages {
         stage('Clean Workspace') {
             steps {
@@ -18,6 +22,22 @@ pipeline {
         stage('Build Maven') {
             steps {
                 bat 'mvn clean package'
+            }
+        }
+        stage('Build Docker Image'){
+            steps {
+                script {
+                    docker.build("${registry}:${registryTag}", '-f Dockerfile .');
+                }
+            }
+        }
+        stage('Push to Docker Hub'){
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-credentials') {
+                        docker.image("${registry}:${registryTag}").push();
+                    }
+                }
             }
         }
     }
