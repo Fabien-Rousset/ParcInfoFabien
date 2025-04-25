@@ -73,41 +73,6 @@ pipeline {
                     status: buildStatus,
                     adaptiveCards: true
                 )
-
-                // Determine the Discord notification content based on build status
-                def color
-                def messageContent
-                def imageUrl
-
-                if (buildStatus == 'SUCCESS') {
-                    color = 3066993
-                    messageContent = "✅ Parc Info API Pipeline Succeeded"
-                    imageUrl = "https://c.tenor.com/Ud36Rrav628AAAAC/tenor.gif"
-                } else {
-                    color = 15158332
-                    messageContent = "❌ Parc Info API Pipeline Failed"
-                    imageUrl = "https://c.tenor.com/nsEfkzN30TIAAAAC/tenor.gif"
-                }
-
-                def payload = """
-                {
-                    "embeds": [{
-                        "title": "${messageContent}",
-                        "description": "${jobName} build #${buildNumber} finished with status: ${buildStatus}",
-                        "color": ${color},
-                        "image": {
-                            "url": "${imageUrl}"
-                        },
-                        "timestamp": "${new Date().format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'', TimeZone.getTimeZone('UTC'))}"
-                    }]
-                }
-                """
-
-                // Use environment variables to securely pass the webhook URL
-                withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_WEBHOOK_URL')]) {
-                    // Send notification to Discord
-                    sh "curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${DISCORD_WEBHOOK_URL}'"
-                }
             }
         }
     }
