@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    triggers {
+        // Trigger on push to the repository
+        githubPush() // For GitHub
+    }
+
     environment {
         registry    = 'fhurai/parcinfo'
         registryTag = 'latest'
