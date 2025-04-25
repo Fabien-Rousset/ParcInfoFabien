@@ -48,17 +48,29 @@ pipeline {
                 }
             }
         }
-         stage('Notify Discord') {
-            steps {
-                discordSend(
-                    webhookURL: 'https://discord.com/api/webhooks/1362093021692301513/dmNmJ4KADsuBVvuKzGi-x7-j1_yIQjWqNy1G21-ZfKGECgq632sz5DpTeKAeJ7y7bVQJ',
-                    title: env.JOB_NAME,
-                    link: env.BUILD_URL,
-                    description: "Build ${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}",
-                    footer: "Jenkins CI",
-                    result: currentBuild.currentResult
-                )
+    }
+    post {
+            always {
+                script {
+                    def discordWebhookUrl = 'https://discord.com/api/webhooks/1362093021692301513/dmNmJ4KADsuBVvuKzGi-x7-j1_yIQjWqNy1G21-ZfKGECgq632sz5DpTeKAeJ7y7bVQJ'
+                    def jobName = env.JOB_NAME
+                    def buildNumber = env.BUILD_NUMBER
+                    def buildUrl = env.BUILD_URL
+                    def buildStatus = currentBuild.currentResult
+
+                    def message = """
+                    {
+                        "content": "**${jobName}** build #${buildNumber} finished with status: **${buildStatus}**\n<${buildUrl}>"
+                    }
+                    """
+
+                    sh """
+                        curl -H "Content-Type: application/json" \
+                             -X POST \
+                             -d '${message.replaceAll("'", "'\\''")}' \
+                             ${discordWebhookUrl}
+                    """
+                }
             }
         }
-    }
 }
