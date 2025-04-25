@@ -9,6 +9,7 @@ pipeline {
     environment {
         registry    = 'fhurai/parcinfo'
         registryTag = 'latest'
+        DISCORD_WEBHOOK_URL = credentials('discord-webhook')
     }
 
     stages {
@@ -53,6 +54,24 @@ pipeline {
         stage('Deploy docker-compose') {
             steps {
                 bat 'docker-compose up -d --build --force-recreate --remove-orphans'
+            }
+        }
+
+        stage('Notify Discord') {
+            steps {
+                script {
+                    def message = """{
+                        "content": "Build and tests completed successfully! 🎉"
+                    }"""
+
+                    // Send the notification to Discord via Webhook
+                    httpRequest(
+                        url: DISCORD_WEBHOOK_URL,
+                        httpMode: 'POST',
+                        contentType: 'APPLICATION_JSON',
+                        requestBody: message
+                    )
+                }
             }
         }
     }
