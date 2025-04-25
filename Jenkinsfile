@@ -53,35 +53,30 @@ pipeline {
     }
 
     post {
-        failure {
-            office365ConnectorSend webhookUrl: "https://afpadevpompey.webhook.office.com/webhookb2/3d85d65d-751e-46e5-9364-a8dcaa81559e@4909a83b-31e2-41e6-8281-41681652175f/IncomingWebhook/2382f891bf184384a19ff814ba66eba8/d192b800-2eb2-4a7a-a780-1f1411683c91/V2oNWRpOVYoyrQvjQhojY4jyM8fn8vOfDNbf5uhV559do1",
-              message: 'Something went wrong',
-              status: 'Failure',
-              adaptiveCards: true
-        }
-        success {
-            office365ConnectorSend webhookUrl: "https://afpadevpompey.webhook.office.com/webhookb2/3d85d65d-751e-46e5-9364-a8dcaa81559e@4909a83b-31e2-41e6-8281-41681652175f/IncomingWebhook/2382f891bf184384a19ff814ba66eba8/d192b800-2eb2-4a7a-a780-1f1411683c91/V2oNWRpOVYoyrQvjQhojY4jyM8fn8vOfDNbf5uhV559do1",
-              message: 'Build success',
-              status: 'Success',
-              adaptiveCards: true
-        }
         always {
-            script {
+           script {
+              office365ConnectorSend webhookUrl: "https://afpadevpompey.webhook.office.com/webhookb2/3d85d65d-751e-46e5-9364-a8dcaa81559e@4909a83b-31e2-41e6-8281-41681652175f/IncomingWebhook/2382f891bf184384a19ff814ba66eba8/d192b800-2eb2-4a7a-a780-1f1411683c91/V2oNWRpOVYoyrQvjQhojY4jyM8fn8vOfDNbf5uhV559do1",
+                  message: '**${jobName}**',
+                  status: '**${buildStatus}**',
+                  adaptiveCards: true
+           }
+           script {
                 def jobName     = env.JOB_NAME
                 def buildNumber = env.BUILD_NUMBER
                 def buildUrl    = env.BUILD_URL
                 def buildStatus = currentBuild.currentResult
 
-                def jsonPayload = """{
-                    "content": "**${jobName}** build #${buildNumber} finished with status: **${buildStatus}** <${buildUrl}>"
-                }"""
+                def message = "**${jobName}** build #${buildNumber} finished with status: **${buildStatus}** <${buildUrl}>"
 
                 withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_WEBHOOK_URL')]) {
+                    // Escape double quotes in the message for use inside shell
+                    def safeJson = message.replace("\"", "\\\"")
+
                     sh """
                         curl -H "Content-Type: application/json" \
                              -X POST \
-                             -d '${jsonPayload}' \
-                             "$DISCORD_WEBHOOK_URL"
+                             -d "{ \\\"content\\\": \\\"${safeJson}\\\" }" \
+                             $DISCORD_WEBHOOK_URL
                     """
                 }
             }
