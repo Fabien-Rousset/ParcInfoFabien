@@ -1,18 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('Clean Workspace'){
+        stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
-        stage('Git Checkout'){
-            steps{
-                script{
+        stage('Git Checkout') {
+            steps {
+                script {
                     git branch: 'main',
                     credentialsId: 'github_access',
                     url: 'https://github.com/Fhurai/ParcInfo.git'
                 }
+            }
+        }
+        stage('Build Maven') {
+            steps {
+                bat 'mvn clean package'
             }
         }
     }
