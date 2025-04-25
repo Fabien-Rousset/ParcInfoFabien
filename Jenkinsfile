@@ -93,7 +93,7 @@ pipeline {
                 {
                     "embeds": [{
                         "title": "${messageContent}",
-                        "description": "**Workflow**: ${env.GITHUB_WORKFLOW}\n**Repository**: ${env.GITHUB_REPOSITORY}\n**Branch**: ${env.GITHUB_REF}\n**Commit**: [${env.GITHUB_SHA:0:7}](https://github.com/${env.GITHUB_REPOSITORY}/commit/${env.GITHUB_SHA})",
+                        "description": "${jobName} build #${buildNumber} finished with status: ${buildStatus}",
                         "color": ${color},
                         "image": {
                             "url": "${imageUrl}"
