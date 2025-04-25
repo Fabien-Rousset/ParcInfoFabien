@@ -40,7 +40,7 @@ services:
     ports:
       - "8091:8081"
     environment:
-      API_URL: http://parcinfo-api:8082
+      FR_AFPA_POMPEY_CDA17_APIURL: http://parcinfo-api:8082
     networks:
       - backend
 
