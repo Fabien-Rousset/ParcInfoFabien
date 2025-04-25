@@ -104,7 +104,7 @@ pipeline {
                 """
 
                 // Use environment variables to securely pass the webhook URL
-                withCredentials([string(credentialsId: 'discord-webhook-url', variable: 'DISCORD_WEBHOOK_URL')]) {
+                withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_WEBHOOK_URL')]) {
                     // Send notification to Discord
                     sh "curl -X POST -H 'Content-Type: application/json' -d '${payload}' '${DISCORD_WEBHOOK_URL}'"
                 }
