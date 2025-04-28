@@ -8,7 +8,8 @@ pipeline {
         registry = "fabien003/WebApp"
 
         //Compte DockerHub paramétré sur le serveur Jenkins dans la rubrique Credentials de l admin serveur
-        registryCredential = 'GITHUB-JENKINS'
+        registryCredential = '2'
+        registryCredential2 = '3'
 
         dockerImage= ''
     }
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 script {
                     git branch: 'main',
-                    credentialsId: 'GITHUB-JENKINS',
+                    credentialsId: '2',
                     url: 'https://github.com/Fabien-Rousset/ParcInfoFabien.git'
                 }
             }
@@ -62,26 +63,12 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('', registryCredential) {
-                        docker.image('fabien003/webapp:latest')
+                    docker.withRegistry('', registryCredential2) {
+                        docker.image('fabien003/webapp:latest').push()
                     }
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
