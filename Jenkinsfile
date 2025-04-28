@@ -1,84 +1,87 @@
 pipeline {
     agent any
 
+
     environment {
-        // Détails du registre Docker
-        registry    = 'fhurai/parcinfo'
-        registryTag = 'latest'
-        
-        // URL du webhook Discord pour les notifications
-        DISCORD_WEBHOOK_URL = credentials('discord-webhook')
+
+        //Nom de mon image pour le dockerHub
+        registry = "fabien003/WebApp"
+
+        //Compte DockerHub paramétré sur le serveur Jenkins dans la rubrique Credentials de l admin serveur
+        registryCredential = 'GITHUB-JENKINS'
+
+        dockerImage= ''
     }
 
+
     stages {
-        stage('Nettoyer l\'espace de travail') {
-            steps {
-                // Nettoyer l'espace de travail pour s'assurer qu'il n'y a pas de fichiers restants des builds précédents
-                cleanWs()
-            }
-        }
 
-        stage('Récupération Git') {
-            steps {
-                // Cloner le dépôt depuis GitHub en utilisant la branche et les identifiants spécifiés
-                git branch: 'main',
-                    credentialsId: 'github_access',
-                    url: 'https://github.com/Fhurai/ParcInfo.git'
-            }
-        }
+        //nettoyage du workspace avant de recopier le dépôt
+                stage('Clean workspace') {
+                    steps {
+                        cleanWs()
+                    }
+                }
 
-        stage('Construire avec Maven') {
-            steps {
-                // Compiler et empaqueter l'application avec Maven
-                bat 'mvn clean package'
-            }
-        }
 
-        stage('Construire l\'image Docker') {
+        // Cloner le dépôt depuis GitHub en utilisant la branche et les identifiants spécifiés
+        stage('Git Checkout') {
             steps {
                 script {
-                    // Construire l'image Docker en utilisant le Dockerfile spécifié
-                    docker.build("${registry}:${registryTag}", '-f Dockerfile .')
+                    git branch: 'main',
+                    credentialsId: 'GITHUB-JENKINS',
+                    url: 'https://github.com/Fabien-Rousset/ParcInfoFabien.git'
                 }
             }
         }
 
-        stage('Pousser sur Docker Hub') {
+
+        //Création du build et recupération du .jar
+        stage('Build Maven') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        //Construction de l'image Docker à partir du DockerFile
+        //-f Dockerfile : indique explicitement le chemin (relatif) du fichier Dockerfile.
+        //     . : définit le contexte de build (le répertoire courant).
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Pousser l'image Docker sur Docker Hub en utilisant les identifiants enregistrés
-                    docker.withRegistry('', 'dockerhub-credentials') {
-                        docker.image("${registry}:${registryTag}").push()
+                    docker.build('fabien003/WebApp:latest', ' -f Dockerfile .')
+                }
+            }
+        }
+
+        //Push de l'image dans le dockerHub
+        //Premier argument ('') : l’URL du registre. Vide ici, ce qui fait qu’on utilise le registre Docker Hub par défaut.
+
+         //Deuxième argument (registryCredential) : l’ID d’une « Jenkins Credential » de type « Docker Registry »
+         //qui contient  nom d’utilisateur et mot de passe (ou token) Docker Hub.
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        docker.image('fabien003/webapp:latest')
                     }
                 }
             }
         }
 
-        stage('Déployer avec docker-compose') {
-            steps {
-                // Déployer l'application en utilisant docker-compose
-                bat 'docker-compose up -d --build --force-recreate --remove-orphans'
-            }
-        }
-    }
 
-    post {
-        always {
-            script {
-                // Envoyer une notification avec le statut du build à Microsoft Teams
-                def jobName     = env.JOB_NAME
-                def buildNumber = env.BUILD_NUMBER
-                def buildStatus = currentBuild.currentResult
 
-                def message = "${jobName} build #${buildNumber} terminé avec le statut : ${buildStatus}"
 
-                office365ConnectorSend(
-                    webhookUrl: "https://afpadevpompey.webhook.office.com/webhookb2/3d85d65d-751e-46e5-9364-a8dcaa81559e@4909a83b-31e2-41e6-8281-41681652175f/IncomingWebhook/2382f891bf184384a19ff814ba66eba8/d192b800-2eb2-4a7a-a780-1f1411683c91/V2oNWRpOVYoyrQvjQhojY4jyM8fn8vOfDNbf5uhV559do1",
-                    message: message,
-                    status: buildStatus,
-                    adaptiveCards: true
-                )
-            }
-        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
