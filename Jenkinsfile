@@ -5,7 +5,7 @@ pipeline {
     environment {
 
         //Nom de mon image pour le dockerHub
-        registry = "fabien003/WebApp"
+        registry = "fabien003/webapp"
 
         //Compte DockerHub paramétré sur le serveur Jenkins dans la rubrique Credentials de l admin serveur
         registryCredential = '2'
@@ -50,7 +50,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('fabien003/WebApp:latest', ' -f Dockerfile .')
+                    docker.build('fabien003/webapp:latest', ' -f Dockerfile .')
                 }
             }
         }

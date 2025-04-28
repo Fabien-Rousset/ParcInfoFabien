@@ -118,6 +118,7 @@ public class PeripheriqueController {
 
         try {
             // Update the type of the peripheral
+            System.out.println(peripherique);
             current.setType(peripherique.getType());
             // Update the label of the associated device
             current.getAppareil().setLibelle(peripherique.getAppareil().getLibelle());
