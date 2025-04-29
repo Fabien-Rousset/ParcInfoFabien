@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  service1:
+    image: fabien003/mysql:latest   # <– remplace par le nom exact de ta 1ʳᵉ image (avec son tag si nécessaire)
+    container_name: mysql_server
+    restart: always
+    ports:
+      - "8081:80"                           # <– adapte les ports selon ce que ton conteneur exporte
+    environment:
+      - ENV_VAR1=valeur1                   # <– tes variables d’environnement, si besoin
+    networks:
+      - mon_reseau
+
+  service2:
+    image: ton-utilisateur/image2:latest   # <– 2ᵉ image
+    container_name: service2
+    restart: unless-stopped
+    depends_on:
+      - service1                           # <– si service2 a besoin que service1 soit démarré avant
+    ports:
+      - "8082:80"
+    networks:
+      - mon_reseau
+
+  service3:
+    image: ton-utilisateur/image3:latest   # <– 3ᵉ image
+    container_name: service3
+    restart: unless-stopped
+    depends_on:
+      - service2
+    ports:
+      - "8083:80"
+    networks:
+      - mon_reseau
+
+networks:
+  mon_reseau:
+    driver: bridge
