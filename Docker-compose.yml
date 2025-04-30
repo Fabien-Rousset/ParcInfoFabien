@@ -29,9 +29,11 @@ services:
     environment:                                # Variables d’environnement pour Spring Boot
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-parcinfo:3306/parcinfo
       # URL JDBC pointant vers le conteneur MySQL
+
       SPRING_DATASOURCE_USERNAME: root          # Nom d’utilisateur pour la connexion JDBC
       SPRING_DATASOURCE_PASSWORD: root          # Mot de passe pour la connexion JDBC
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SERVER_PORT: 8082
       # Dialect Hibernate pour MySQL 8
     networks:
       - backend                                 # Même réseau que MySQL pour résolution DNS interne
