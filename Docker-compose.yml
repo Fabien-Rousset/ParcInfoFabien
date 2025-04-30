@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: root                  # Mot de passe de l’utilisateur root
       MYSQL_DATABASE: parcinfoapi                # Création automatique de la base « parcinfoapi »
       MYSQL_USER: root                           # Création de l’utilisateur « root »
-      MYSQL_PASSWORD: root                       # Mot de passe associé à cet utilisateur
+
     ports:
       - "3386:3306"                              # Expose le port 3306 du conteneur sur le port 3386 de l’hôte
     volumes:
