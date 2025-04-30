@@ -1,39 +1,72 @@
-version: '3.8'
+# docker-compose.yml pour le projet « Parc-info »
+version: '3.8'  # version du format Compose (recommandée pour Docker Engine ≥ 18.06)
 
 services:
-  service1:
-    image: fabien003/mysql:latest   # <– remplace par le nom exact de ta 1ʳᵉ image (avec son tag si nécessaire)
-    container_name: mysql_server
-    restart: always
+  mysql:
+    image: mysql:8.3.0                           # Image officielle MySQL version 8.3.0
+    container_name: mysql-parcinfo               # Nom du conteneur local (facilite la gestion)
+    environment:                                 # Variables d’environnement pour configurer MySQL
+      MYSQL_ROOT_PASSWORD: root                  # Mot de passe de l’utilisateur root
+      MYSQL_DATABASE: parcinfoapi                # Création automatique de la base « parcinfoapi »
+      MYSQL_USER: root                           # Création de l’utilisateur « root »
+      MYSQL_PASSWORD: root                       # Mot de passe associé à cet utilisateur
     ports:
-      - "8081:80"                           # <– adapte les ports selon ce que ton conteneur exporte
+      - "3386:3306"                              # Expose le port 3306 du conteneur sur le port 3386 de l’hôte
+    volumes:
+      - db_data:/var/lib/mysql                   # Volume persistant pour les fichiers de données MySQL
+      - ./conception/parcinfo.sql:/docker-entrypoint-initdb.d/parcinfo.sql:ro
+      # Script SQL d’initialisation (monté en lecture seule)
+    networks:
+      - backend                                  # Connecte ce service au réseau « backend »
+
+  parcinfo-api:
+    image: fabien003/parcinfoapi:latest          # Image Docker de l’API Spring Boot
+    container_name: parcinfo-api                 # Nom du conteneur
+    depends_on:
+      - mysql                                   # Démarre l’API seulement après le service MySQL
+    ports:
+      - "8092:8082"                             # Expose le port 8082 du conteneur sur 8092 de l’hôte
+    environment:                                # Variables d’environnement pour Spring Boot
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-parcinfo:3306/parcinfo
+      # URL JDBC pointant vers le conteneur MySQL
+      SPRING_DATASOURCE_USERNAME: root          # Nom d’utilisateur pour la connexion JDBC
+      SPRING_DATASOURCE_PASSWORD: root          # Mot de passe pour la connexion JDBC
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      # Dialect Hibernate pour MySQL 8
+    networks:
+      - backend                                 # Même réseau que MySQL pour résolution DNS interne
+
+  parcinfo:
+    image: fabien003/webapp:latest               # Image Docker de la webapp front-end
+    container_name: parcinfo                     # Nom du conteneur
+    depends_on:
+      - parcinfo-api                             # Attend que l’API soit opérationnelle
+    ports:
+      - "8091:8081"                              # Expose le port 8081 du conteneur sur 8091 de l’hôte
     environment:
-      - ENV_VAR1=valeur1                   # <– tes variables d’environnement, si besoin
+      FR_AFPA_POMPEY_CDA17_APIURL: http://parcinfo-api:8082
+      # URL de l’API utilisée par la webapp
     networks:
-      - mon_reseau
+      - backend                                 # Même réseau privé pour communiquer avec l’API
 
-  service2:
-    image: ton-utilisateur/image2:latest   # <– 2ᵉ image
-    container_name: service2
-    restart: unless-stopped
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin                 # Interface web phpMyAdmin pour gérer MySQL
+    container_name: phpmyadmin-parcinfo          # Nom du conteneur phpMyAdmin
     depends_on:
-      - service1                           # <– si service2 a besoin que service1 soit démarré avant
+      - mysql                                   # Démarre après la base de données
     ports:
-      - "8082:80"
+      - "8088:80"                               # Expose l’interface web sur http://localhost:8088
+    environment:
+      PMA_HOST: mysql                           # Nom du service MySQL à gérer
+      MYSQL_PASSWORD: root                      # Mot de passe pour se connecter à MySQL
     networks:
-      - mon_reseau
+      - backend
 
-  service3:
-    image: ton-utilisateur/image3:latest   # <– 3ᵉ image
-    container_name: service3
-    restart: unless-stopped
-    depends_on:
-      - service2
-    ports:
-      - "8083:80"
-    networks:
-      - mon_reseau
+# Déclaration des volumes Docker (stockage persistant)
+volumes:
+  db_data:                                     # Volume nommé « db_data » pour les données MySQL
 
+# Déclaration des réseaux Docker
 networks:
-  mon_reseau:
-    driver: bridge
+  backend:                                    # Réseau interne isolé
+    driver: bridge                            # Type de réseau par défaut
