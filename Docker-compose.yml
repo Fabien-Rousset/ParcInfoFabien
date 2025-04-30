@@ -27,7 +27,7 @@ services:
     ports:
       - "8092:8082"                             # Expose le port 8082 du conteneur sur 8092 de l’hôte
     environment:                                # Variables d’environnement pour Spring Boot
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-parcinfo:3306/parcinfo
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-parcinfo:3306/parcinfoapi
       # URL JDBC pointant vers le conteneur MySQL
 
       SPRING_DATASOURCE_USERNAME: root          # Nom d’utilisateur pour la connexion JDBC
